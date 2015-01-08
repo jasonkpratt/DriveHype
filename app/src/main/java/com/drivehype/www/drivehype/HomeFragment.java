@@ -17,7 +17,7 @@ public class HomeFragment extends Fragment {
 
     private ProfilePictureView profilePictureView;
     private TextView userNameView;
-    private LoginButton loginButton;
+    private LoginButton authButton;
     private static final String ARG_SECTION_NUMBER = "section_number";
     private String mParam1;
     private OnFragmentInteractionListener mListener;
@@ -65,7 +65,7 @@ public class HomeFragment extends Fragment {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.fragment_home, container, false);
-            LoginButton authButton = (LoginButton) view.findViewById(R.id.authButton);
+            authButton = (LoginButton) view.findViewById(R.id.authButton);
             authButton.setFragment(this);
             profilePictureView = (ProfilePictureView) view.findViewById(R.id.selection_profile_pic);
             profilePictureView.setCropped(true);
@@ -93,7 +93,9 @@ public class HomeFragment extends Fragment {
                                 // view that in turn displays the profile picture.
                                 profilePictureView.setProfileId(user.getId());
                                 // Set the Textview's text to the user's name.
-                                userNameView.setText(user.getName());
+                                userNameView.setText("Logged in as "+user.getFirstName());
+
+
                             }
                         }
                         if (response.getError() != null) {
@@ -169,6 +171,7 @@ public class HomeFragment extends Fragment {
             // If the session state is open:
             // Show the authenticated fragment
             makeMeRequest(session);
+            authButton.setVisibility(View.INVISIBLE);
 
         } else if (state.isClosed()) {
             // If the session state is closed:

@@ -3,46 +3,27 @@
     xmlns:facebook="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/pullimage"
     tools:context="com.drivehype.www.drivehype.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/title_section1" />
 
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+    <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical"
-        android:background="#303040" >
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal" >
 
-        <LinearLayout
-            android:layout_width="fill_parent"
+        <com.facebook.widget.ProfilePictureView
+            android:id="@+id/selection_profile_pic"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_gravity="left"
             android:gravity="center_horizontal"
-            android:orientation="horizontal" >
-            <ImageView
-                android:id="@+id/splash_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:gravity="center"
-                android:src="@drawable/ic_launcher" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:textColor="#AFDEFE"
-                android:textSize="28sp"
-                android:typeface="serif"
-                android:textStyle="italic"
-                android:text="@string/app_name" />
-        </LinearLayout>
-
-
+            facebook:preset_size="small" />
         <TextView
             android:id="@+id/profile_name"
             android:layout_width="174dp"
@@ -62,14 +43,53 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="30dp"
             />
-        <com.facebook.widget.ProfilePictureView
-            android:id="@+id/selection_profile_pic"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center_horizontal"
-            facebook:preset_size="small" />
-
-
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="30dp"
+            android:gravity="bottom"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/splash_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="10dp"
+                android:gravity="bottom"
+                android:src="@drawable/dh_icon" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:gravity="bottom"
+                android:textColor="#AFDEFE"
+                android:textSize="28sp"
+                android:typeface="serif"
+                android:textStyle="italic"
+                android:text="@string/app_name" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:gravity="bottom"
+                android:textColor="#AFDEFE"
+                android:textSize="28sp"
+                android:typeface="serif"
+                android:textStyle="italic"
+                android:text="Now Playing, Screens, View current show" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+
 </FrameLayout>

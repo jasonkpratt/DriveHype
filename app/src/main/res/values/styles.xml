@@ -1,7 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light">
+    <style name="AppTheme"
+        parent="Theme.AppCompat">
         <!-- Customize your theme here. -->
 
         <item name="actionBarStyle" >@style/MyActionBar</item>
@@ -12,10 +13,9 @@
     <style name="MyActionBar"
         parent="Widget.AppCompat.Light.ActionBar.Solid.Inverse">
         <item name="background"
-            >@color/myGreen</item>
-
+            >@color/MidnightBlue</item>
         <item name="icon"
-            >@drawable/ic_launcher</item>
+            >@drawable/dh_icon</item>
         <item name="displayOptions">showTitle|showHome</item>
     </style>
 

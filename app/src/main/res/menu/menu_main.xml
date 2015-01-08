@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
 
-    
+
 
     <!-- Search, should appear as action button -->
     <item android:id="@+id/action_search"
@@ -15,6 +15,19 @@
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"
         app:showAsAction="never" />
+
+    <item android:id="@+id/action_logout"
+        android:title="@string/logout"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/permissions"
+        android:title="@string/permissions"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/account"
+        android:title="@string/account"
+        app:showAsAction="never" />
+
 
 
 </menu>

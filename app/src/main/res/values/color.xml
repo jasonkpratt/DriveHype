@@ -126,7 +126,7 @@
         <color name="ForestGreen">#228B22</color>
         <color name="LightSeaGreen">#20B2AA</color>
         <color name="DodgerBlue">#1E90FF</color>
-        <color name="MidnightBlue">#191970</color>
+        <color name="MidnightBlue">#ff0b034d</color>
         <color name="Aqua">#00FFFF</color>
         <color name="Cyan">#00FFFF</color>
         <color name="SpringGreen">#00FF7F</color>
@@ -138,7 +138,7 @@
         <color name="Teal">#008080</color>
         <color name="Green">#008000</color>
         <color name="DarkGreen">#006400</color>
-        <color name="Blue">#0000FF</color>
+        <color name="Blue">#ff1609b2</color>
         <color name="MediumBlue">#0000CD</color>
         <color name="DarkBlue">#00008B</color>
         <color name="Navy">#000080</color>
