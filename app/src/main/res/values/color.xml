@@ -96,7 +96,7 @@
         <color name="BlueViolet">#8A2BE2</color>
         <color name="LightSkyBlue">#87CEFA</color>
         <color name="SkyBlue">#87CEEB</color>
-        <color name="Gray">#808080</color>
+        <color name="Gray">#ff969696</color>
         <color name="Olive">#808000</color>
         <color name="Purple">#800080</color>
         <color name="Maroon">#800000</color>
@@ -104,7 +104,7 @@
         <color name="Chartreuse">#7FFF00</color>
         <color name="LawnGreen">#7CFC00</color>
         <color name="MediumSlateBlue">#7B68EE</color>
-        <color name="LightSlateGray">#778899</color>
+        <color name="LightSlateGray">#ff242a38</color>
         <color name="SlateGray">#708090</color>
         <color name="OliveDrab">#6B8E23</color>
         <color name="SlateBlue">#6A5ACD</color>
@@ -140,7 +140,7 @@
         <color name="DarkGreen">#006400</color>
         <color name="Blue">#ff1609b2</color>
         <color name="MediumBlue">#0000CD</color>
-        <color name="DarkBlue">#00008B</color>
+        <color name="DarkBlue">#ff020924</color>
         <color name="Navy">#000080</color>
         <color name="Black">#000000</color>
 

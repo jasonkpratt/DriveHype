@@ -30,7 +30,8 @@
     <string name="logout">Log Out </string>
     <string name="permissions">Permissions </string>
     <string name="account">Account </string>
-
+    <string name="share">Share App </string>
+    <string name="rate">Rate App </string>
 
 
 </resources>

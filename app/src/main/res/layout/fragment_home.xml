@@ -6,10 +6,6 @@
     android:background="@drawable/pullimage"
     tools:context="com.drivehype.www.drivehype.HomeFragment">
 
-
-
-
-
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -17,19 +13,13 @@
         android:gravity="center_horizontal"
         android:orientation="horizontal" >
 
-        <com.facebook.widget.ProfilePictureView
-            android:id="@+id/selection_profile_pic"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_gravity="left"
-            android:gravity="center_horizontal"
-            facebook:preset_size="small" />
+
         <TextView
             android:id="@+id/profile_name"
             android:layout_width="174dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
-            android:lines="2"
+            android:lines="10"
             android:textSize="17sp"
             android:textColor="#AFDEFE"
             android:text="@string/get_started"
@@ -83,10 +73,20 @@
                 android:layout_gravity="bottom"
                 android:gravity="bottom"
                 android:textColor="#AFDEFE"
-                android:textSize="28sp"
+                android:textSize="20sp"
                 android:typeface="serif"
                 android:textStyle="italic"
-                android:text="Now Playing, Screens, View current show" />
+                android:layout_marginLeft="80dp"
+                android:text="User:" />
+
+            <com.facebook.widget.ProfilePictureView
+                android:id="@+id/selection_profile_pic"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="bottom"
+                android:gravity="left"
+                android:layout_marginLeft="20dp"
+                facebook:preset_size="small" />
         </LinearLayout>
     </LinearLayout>
 
