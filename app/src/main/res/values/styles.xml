@@ -13,7 +13,7 @@
     <style name="MyActionBar"
         parent="Widget.AppCompat.Light.ActionBar.Solid.Inverse">
         <item name="background"
-            >@color/MidnightBlue</item>
+            >@color/DarkBlue</item>
         <item name="icon"
             >@drawable/dh_icon</item>
         <item name="displayOptions">showTitle|showHome</item>

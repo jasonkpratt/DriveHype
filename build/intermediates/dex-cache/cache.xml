@@ -2,46 +2,11 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\jason\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.2\support-annotations-21.0.2.jar"
+        jar="/Users/JasonPratt/DriveHype/app/build/intermediates/exploded-aar/com.facebook.android/facebook/3.21.1/classes.jar"
         jumboMode="false"
         revision="21.1.1"
-        sha1="99373741f99a0556ee293c41e8faa1ca3ae8a4e6">
-        <dex dex="C:\Users\jason\Documents\GitHub\DriveHype\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.2-5171e9f34b69706bc60ccca9e11feed1c6215d03.jar" />
-    </item>
-    <item
-        jar="C:\Users\jason\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-android\1.1.2\91c20388c9a45f62b5ed8fe0502bb76ff6251fc7\bolts-android-1.1.2.jar"
-        jumboMode="false"
-        revision="21.1.1"
-        sha1="91c20388c9a45f62b5ed8fe0502bb76ff6251fc7">
-        <dex dex="C:\Users\jason\Documents\GitHub\DriveHype\app\build\intermediates\pre-dexed\debug\bolts-android-1.1.2-05004d75658751a49e833e65e1ff3246427d8d5e.jar" />
-    </item>
-    <item
-        jar="C:\Users\jason\Documents\GitHub\DriveHype\app\build\intermediates\exploded-aar\com.facebook.android\facebook\3.21.1\classes.jar"
-        jumboMode="false"
-        revision="21.1.1"
-        sha1="293cff619ab75a512c5059e0197114d842d073f9">
-        <dex dex="C:\Users\jason\Documents\GitHub\DriveHype\app\build\intermediates\pre-dexed\debug\classes-5bd5a9084ce52ee1e2243acd5a2e0483229c41e6.jar" />
-    </item>
-    <item
-        jar="C:\Users\jason\Documents\GitHub\DriveHype\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.2\libs\internal_impl-21.0.2.jar"
-        jumboMode="false"
-        revision="21.1.1"
-        sha1="962e8b12569c56dbdcf8367eb4eac8bb129cd18f">
-        <dex dex="C:\Users\jason\Documents\GitHub\DriveHype\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.2-e6190025c1e1539ae1d0bce9acf2aecf31b99eca.jar" />
-    </item>
-    <item
-        jar="C:\Users\jason\Documents\GitHub\DriveHype\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.2\classes.jar"
-        jumboMode="false"
-        revision="21.1.1"
-        sha1="d1bf02de1c56d942e7a9d093b8610ba1ef4128e3">
-        <dex dex="C:\Users\jason\Documents\GitHub\DriveHype\app\build\intermediates\pre-dexed\debug\classes-9baa2683c67057091782f150e44cd3fa97176753.jar" />
-    </item>
-    <item
-        jar="C:\Users\jason\Documents\GitHub\DriveHype\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.2\classes.jar"
-        jumboMode="false"
-        revision="21.1.1"
-        sha1="7ae2d38807a43b2f2185ff4089a92c790b579e54">
-        <dex dex="C:\Users\jason\Documents\GitHub\DriveHype\app\build\intermediates\pre-dexed\debug\classes-33db6b976f8d72413fa3bee6e75c40ca79d569fe.jar" />
+        sha1="08972bd30a29afad3cbde9968b5f76ec5c5f3a8f">
+        <dex dex="/Users/JasonPratt/DriveHype/app/build/intermediates/pre-dexed/debug/classes-a2eacb511be901f99d3772a19c0f4776b81db83a.jar" />
     </item>
 
 </items>
