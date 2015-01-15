@@ -2,11 +2,46 @@
 <items version="2" >
 
     <item
+        jar="/Users/JasonPratt/DriveHype/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.2/libs/internal_impl-21.0.2.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="962e8b12569c56dbdcf8367eb4eac8bb129cd18f">
+        <dex dex="/Users/JasonPratt/DriveHype/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.2-cb7b1b2d349f51c2a767850220790a84b779b827.jar" />
+    </item>
+    <item
+        jar="/Users/JasonPratt/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.2/support-annotations-21.0.2.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="99373741f99a0556ee293c41e8faa1ca3ae8a4e6">
+        <dex dex="/Users/JasonPratt/DriveHype/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.2-188ce244bbe43f8a57fa4c2e36f9b22078dc7b25.jar" />
+    </item>
+    <item
+        jar="/Users/JasonPratt/DriveHype/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.2/classes.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="7ae2d38807a43b2f2185ff4089a92c790b579e54">
+        <dex dex="/Users/JasonPratt/DriveHype/app/build/intermediates/pre-dexed/debug/classes-8cfb32a21c594b9d33b229bf748c591020e7aa8e.jar" />
+    </item>
+    <item
+        jar="/Users/JasonPratt/DriveHype/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.2/classes.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="d1bf02de1c56d942e7a9d093b8610ba1ef4128e3">
+        <dex dex="/Users/JasonPratt/DriveHype/app/build/intermediates/pre-dexed/debug/classes-2c9afa81e007996a150fc8817ef1d34684854e76.jar" />
+    </item>
+    <item
         jar="/Users/JasonPratt/DriveHype/app/build/intermediates/exploded-aar/com.facebook.android/facebook/3.21.1/classes.jar"
         jumboMode="false"
         revision="21.1.1"
-        sha1="08972bd30a29afad3cbde9968b5f76ec5c5f3a8f">
+        sha1="7600d66c54bcdd29948023cc1f6e5ad4fcf5148d">
         <dex dex="/Users/JasonPratt/DriveHype/app/build/intermediates/pre-dexed/debug/classes-a2eacb511be901f99d3772a19c0f4776b81db83a.jar" />
+    </item>
+    <item
+        jar="/Users/JasonPratt/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-android/1.1.2/91c20388c9a45f62b5ed8fe0502bb76ff6251fc7/bolts-android-1.1.2.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="91c20388c9a45f62b5ed8fe0502bb76ff6251fc7">
+        <dex dex="/Users/JasonPratt/DriveHype/app/build/intermediates/pre-dexed/debug/bolts-android-1.1.2-e3d210a3a31adc9fb064ff3bcdae235c222e5f92.jar" />
     </item>
 
 </items>

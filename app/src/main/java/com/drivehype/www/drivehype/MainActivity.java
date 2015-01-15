@@ -42,6 +42,7 @@ public class MainActivity extends ActionBarActivity
     private Session session=null;
     public String [] albumList;
     public String [] myList={"1","2","3","4"};
+    public String [] coverPhoto;
 
 
 
@@ -224,11 +225,13 @@ public class MainActivity extends ActionBarActivity
     }
 
     @Override
-    public void onFragmentInteraction(String [] albumList2) {
+    public void onFragmentInteraction(String [] albumList2, String [] coverPhoto2) {
         // what should this activity do when fragment calls this method
         this.albumList=albumList2;
+        this.coverPhoto=coverPhoto2;
         Log.d("myTag","This is my message");
         Log.d("albumList","first position in array "+albumList[0]);
+      //  Log.d("photoLength","coverphoto length: "+coverPhoto.length);
     }
 
     public String [] getAlbumList(){
@@ -236,6 +239,10 @@ public class MainActivity extends ActionBarActivity
 
     }
 
+    public String [] getAlbumCover(){
+        return coverPhoto;
+
+    }
 
 }
 

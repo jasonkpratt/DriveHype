@@ -1,6 +1,8 @@
 package com.drivehype.www.drivehype;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,6 +21,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONException;
 
+
 public class HomeFragment extends Fragment {
 
     private static ProfilePictureView profilePictureView;
@@ -33,6 +36,11 @@ public class HomeFragment extends Fragment {
     private LoginButton authButton;
     private TextView userNameView;
     public String [] albumList;
+    private int index=0;
+    private JSONObject oneAlbum;
+    public String [] albumImageUri;
+    private int dataLength=0;
+    private int counter=0;
     private Session.StatusCallback callback = new Session.StatusCallback() {
         @Override
         public void call(Session session, SessionState state, Exception exception) {
@@ -44,7 +52,7 @@ public class HomeFragment extends Fragment {
     public interface OnFragmentInteractionListener {
 
         public void onFragmentInteraction(GraphUser user);
-        public void onFragmentInteraction(String [] albumList);
+        public void onFragmentInteraction(String [] albumList, String [] albumImageUri);
     }
 
     public static HomeFragment newInstance(int position) {
@@ -78,7 +86,7 @@ public class HomeFragment extends Fragment {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.fragment_home, container, false);
-
+            Log.d("newpic", "made it here, oh yeah");
             profilePictureView = (ProfilePictureView) view.findViewById(R.id.selection_profile_pic);
             profilePictureView.setCropped(true);
             userNameView = (TextView) view.findViewById(R.id.profile_name);
@@ -145,14 +153,48 @@ public class HomeFragment extends Fragment {
                             JSONObject innerJson = response.getGraphObject().getInnerJSONObject();
                             JSONArray data = innerJson.getJSONArray("data");
                             albumList=new String [data.length()];
-                            for (int i=0; i<data.length();i++) {
+                            dataLength=data.length();
+                            albumImageUri=new String [dataLength];
+                            for ( index=0; index<data.length();index++) {
 
-                                JSONObject oneAlbum = data.getJSONObject(i);
+                                 oneAlbum = data.getJSONObject(index);
                                 //get your values
-                                albumList[i]=oneAlbum.getString("name"); // this will return you the album's name.
+                                albumList[index]=oneAlbum.getString("name"); // this will return you the album's name.
+                                final String albumid=oneAlbum.getString("cover_photo");
+                                //Log.d("albums Response", "albums response innerjson"+innerJson.toString());
+                                //Log.d("array", "albums response jsonArray"+data.toString());
+
+                                        /* make the API call */
+
+
+                                new Request(
+                                        session,
+                                        "/"+ albumid,
+                                        null,
+                                        HttpMethod.GET,
+                                        new Request.Callback() {
+                                            public void onCompleted(Response response2) {
+                                                Log.d("myindex", "index count"+counter);
+
+                                                JSONObject innerJson2 = response2.getGraphObject().getInnerJSONObject();
+                                               try{
+                                                  albumImageUri[counter]=innerJson2.getString("picture") ;
+                                                 Log.d("uripic", "album uri"+albumImageUri[counter]);
+                                                }
+
+                                                catch (JSONException e) { }
+
+                                                counter++;
+
+                                            }
+                                        }
+                                ).executeAsync();
+
+
+
                             }
-                            userNameView.setText(albumList[0]);
-                            mListener.onFragmentInteraction(albumList);
+
+                            mListener.onFragmentInteraction(albumList, albumImageUri);
 
 
                         }
