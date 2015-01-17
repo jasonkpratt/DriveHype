@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.drivehype.www.drivehype.FB_Fragment" >
+    tools:context="com.drivehype.www.drivehype.NavDrawerFragments.FB_Fragment" >
 
 <GridView
 
@@ -16,7 +16,7 @@
     android:layout_margin="4dp"
     android:columnWidth="80dp"
     android:gravity="center"
-    android:numColumns="2"
+    android:numColumns="3"
     android:stretchMode="columnWidth" >
     </GridView>
 
