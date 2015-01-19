@@ -34,13 +34,14 @@
 
 
         <activity android:name="com.drivehype.www.drivehype.ui.ImageGridActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:parentActivityName=".ui.MainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
 
         <activity
             android:name="com.drivehype.www.drivehype.ui.ImageDetailActivity"

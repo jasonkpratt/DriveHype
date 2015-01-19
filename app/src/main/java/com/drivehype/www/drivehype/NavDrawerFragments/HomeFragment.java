@@ -7,8 +7,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.net.Uri;
 import com.drivehype.www.drivehype.R;
+import com.drivehype.www.drivehype.ui.MainActivity;
+import com.drivehype.www.drivehype.util.FB_Data_Pull;
 import com.facebook.*;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
@@ -25,20 +27,15 @@ public class HomeFragment extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
     private String mParam1;
     private OnFragmentInteractionListener mListener;
-    public static GraphUser user=null;
-    Session session=null;
+
+    private static Bundle args;
     private static UiLifecycleHelper uiHelper ;
     protected boolean isResumed = false;
     private static final int REAUTH_ACTIVITY_CODE = 100;
     private LoginButton authButton;
     private TextView userNameView;
-    public String [] albumList;
-    private int index=0;
-    private JSONObject oneAlbum;
-    public String [] albumImageUri;
-    public String [] albumImageSource;
-    private int dataLength=0;
-    private int counter=0;
+    public static Session session;
+    private static FB_Data_Pull FBData;
     private Session.StatusCallback callback = new Session.StatusCallback() {
         @Override
         public void call(Session session, SessionState state, Exception exception) {
@@ -49,19 +46,18 @@ public class HomeFragment extends Fragment {
 
     public interface OnFragmentInteractionListener {
 
-        public void onFragmentInteraction(GraphUser user);
-        public void onFragmentInteraction(String [] albumList, String [] albumImageUri, String[] albumImageSource);
+
+        public void onFragmentInteraction(Uri uri);
 
     }
 
     public static HomeFragment newInstance(int position) {
         HomeFragment fragment = new HomeFragment();
-
-
-        Bundle args = new Bundle();
+        args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, position);
         fragment.setArguments(args);
         return fragment;
+
     }
 
     public HomeFragment() {
@@ -86,135 +82,19 @@ public class HomeFragment extends Fragment {
                 Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.fragment_home, container, false);
             Log.d("newpic", "made it here, oh yeah");
+            session = Session.getActiveSession();
             profilePictureView = (ProfilePictureView) view.findViewById(R.id.selection_profile_pic);
             profilePictureView.setCropped(true);
             userNameView = (TextView) view.findViewById(R.id.profile_name);
-            session = Session.getActiveSession();
-
             authButton=(LoginButton) view.findViewById(R.id.authButton);
             authButton.setFragment(this);
-
-            if (session != null && session.isOpened()&&user==null) {
-                // Get the user's data
-                makeMeRequest();
-                makeAlbumRequest();
-
+            FBData=FB_Data_Pull.getInstance(this);
+            if(FB_Data_Pull.user!=null) {
+               profilePictureView.setProfileId(FB_Data_Pull.user.getId());
+                Log.d("newpic1", "userData"+FB_Data_Pull.user.toString());
             }
-
-
-            // Set the id for the ProfilePictureView
-            // view that in turn displays the profile picture.
-
-
             return view;
             }
-
-
-    private void makeMeRequest() {
-        // Make an API call to get user data and define a
-        // new callback to handle the response.
-        Request request = Request.newMeRequest(session,
-                new Request.GraphUserCallback() {
-                    @Override
-                    public void onCompleted(GraphUser user, Response response) {
-                        // If the response is successful
-                        if (session == Session.getActiveSession()) {
-                            if (user != null) {
-                            //userNameView.setText(user.getName());
-                            profilePictureView.setProfileId(user.getId());
-                                mListener.onFragmentInteraction(user);
-
-
-                            }
-                        }
-                        if (response.getError() != null) {
-                            // Handle errors, will do so later.
-                        }
-                    }
-                });
-        request.executeAsync();
-    }
-
-    private void makeAlbumRequest( ) {
-
-        /* make the API call */
-        new Request(
-                session,
-                "/me/albums",
-                null,
-                HttpMethod.GET,
-                new Request.Callback() {
-
-
-                    public void onCompleted(Response response) {
-                        try {
-                            counter=0;
-                            JSONObject innerJson = response.getGraphObject().getInnerJSONObject();
-                            JSONArray data = innerJson.getJSONArray("data");
-                            albumList=new String [data.length()];
-                            dataLength=data.length();
-                            albumImageUri=new String [dataLength];
-                            albumImageSource=new String [dataLength];
-                            for ( index=0; index<data.length();index++) {
-
-                                 oneAlbum = data.getJSONObject(index);
-                                //get your values
-                                albumList[index]=oneAlbum.getString("name"); // this will return you the album's name.
-                                final String albumid=oneAlbum.getString("cover_photo");
-                                //Log.d("albums Response", "albums response innerjson"+innerJson.toString());
-                                //Log.d("array", "albums response jsonArray"+data.toString());
-
-                                        /* make the API call */
-
-
-                                new Request(
-                                        session,
-                                        "/"+ albumid,
-                                        null,
-                                        HttpMethod.GET,
-                                        new Request.Callback() {
-                                            public void onCompleted(Response response2) {
-                                                Log.d("myindex", "index count"+counter);
-
-                                                JSONObject innerJson2 = response2.getGraphObject().getInnerJSONObject();
-                                               try{
-                                                  albumImageUri[counter]=innerJson2.getString("picture") ;
-
-                                                }
-
-                                                catch (JSONException e) { }
-                                                //needed a separate counter for each async methods
-
-                                                try{
-                                                    albumImageSource[counter]=innerJson2.getString("source") ;
-                                                   // Log.d("uripic", "album innerjson2"+albumImageSource[counter]);
-                                                }
-                                                catch (JSONException e) { }
-
-                                                counter++;
-
-                                            }
-                                        }
-                                ).executeAsync();
-
-
-
-                            }
-
-                            mListener.onFragmentInteraction(albumList, albumImageUri,albumImageSource);
-
-
-                        }
-                        catch (JSONException e) { }
-
-
-            /* handle the result */
-
-                    }
-                }
-        ).executeAsync();
-
-    }
 
 
 
@@ -280,6 +160,15 @@ public class HomeFragment extends Fragment {
 
     }
 
+    public void setPicture(GraphUser user) {
+
+        profilePictureView.setProfileId(FB_Data_Pull.user.getId());
+        Log.d("newpic3", "setting picture" + FB_Data_Pull.user.getId().toString());
+
+    }
+
+
+
     private void onSessionStateChange(Session session, SessionState state, Exception exception) {
         // Only make changes if the activity is visible
 
@@ -288,11 +177,12 @@ public class HomeFragment extends Fragment {
             // Show the authenticated fragment
             userNameView.setVisibility(View.INVISIBLE);
             authButton.setVisibility(View.INVISIBLE);
-           if (user==null) {
-               makeMeRequest();
-               makeAlbumRequest();
-           }
 
+
+               if(FB_Data_Pull.user!=null) {
+                   profilePictureView.setProfileId(FB_Data_Pull.user.getId());
+                   Log.d("newpic2", "userData" + FB_Data_Pull.user.getId().toString());
+               }
 
 
         } else if (state.isClosed()) {

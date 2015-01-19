@@ -16,7 +16,7 @@ import com.drivehype.www.drivehype.NavDrawerFragments.ActivitiesFragment;
 import com.drivehype.www.drivehype.NavDrawerFragments.BluetoothFragment;
 import com.drivehype.www.drivehype.NavDrawerFragments.ChannelsFragment;
 import com.drivehype.www.drivehype.NavDrawerFragments.EncountersFragment;
-import com.drivehype.www.drivehype.NavDrawerFragments.FB_Fragment;
+
 import com.drivehype.www.drivehype.NavDrawerFragments.FriendsFragment;
 import com.drivehype.www.drivehype.NavDrawerFragments.HomeFragment;
 import com.drivehype.www.drivehype.NavDrawerFragments.MessageFragment;
@@ -29,6 +29,7 @@ import com.drivehype.www.drivehype.NavDrawerFragments.WIFI_Fragment;
 import com.drivehype.www.drivehype.R;
 import com.drivehype.www.drivehype.provider.Images;
 import com.drivehype.www.drivehype.ui.ImageDetailActivity;
+import com.drivehype.www.drivehype.util.FB_Data_Pull;
 import com.facebook.Session;
 import com.facebook.model.GraphUser;
 
@@ -36,9 +37,9 @@ import android.util.Log;
 
 
 public class MainActivity extends ActionBarActivity
-        implements HomeFragment.OnFragmentInteractionListener,WIFI_Fragment.OnFragmentInteractionListener,NearByFragment.OnFragmentInteractionListener,MyScreenFragment.OnFragmentInteractionListener,FriendsFragment.OnFragmentInteractionListener,EncountersFragment.OnFragmentInteractionListener,ChannelsFragment.OnFragmentInteractionListener,BluetoothFragment.OnFragmentInteractionListener,ActivitiesFragment.OnFragmentInteractionListener,PullFragment.OnFragmentInteractionListener,PushFragment.OnFragmentInteractionListener,MessageFragment.OnFragmentInteractionListener,NavigationDrawerFragment.NavigationDrawerCallbacks, FB_Fragment.OnFragmentInteractionListener {
+        implements HomeFragment.OnFragmentInteractionListener,WIFI_Fragment.OnFragmentInteractionListener,NearByFragment.OnFragmentInteractionListener,MyScreenFragment.OnFragmentInteractionListener,FriendsFragment.OnFragmentInteractionListener,EncountersFragment.OnFragmentInteractionListener,ChannelsFragment.OnFragmentInteractionListener,BluetoothFragment.OnFragmentInteractionListener,ActivitiesFragment.OnFragmentInteractionListener,PullFragment.OnFragmentInteractionListener,PushFragment.OnFragmentInteractionListener,MessageFragment.OnFragmentInteractionListener,NavigationDrawerFragment.NavigationDrawerCallbacks {
 
-    /**
+ /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
     private NavigationDrawerFragment mNavigationDrawerFragment;
@@ -48,14 +49,6 @@ public class MainActivity extends ActionBarActivity
      */
     private CharSequence mTitle;
     private MenuItem logoutItem;
-    private static GraphUser user=null;
-    private Session session=null;
-    public static String [] albumList;
-    public static String [] coverPhoto;
-    public static String [] albumImageSource;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -176,14 +169,16 @@ public class MainActivity extends ActionBarActivity
                 mTitle=  "Activities";
                 break;
         }
+
+
     }
 
     public void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(mTitle);
-        if(user!=null)
-        logoutItem.setTitle(user.getFirstName()+": Sign Out");
+        if(FB_Data_Pull.user!=null)
+        logoutItem.setTitle(FB_Data_Pull.user.getFirstName()+": Sign Out");
         else
             logoutItem.setTitle("Log In");
 
@@ -227,49 +222,6 @@ public class MainActivity extends ActionBarActivity
         // what should this activity do when fragment calls this method
     }
 
-    @Override
-    public void onFragmentInteraction(String id) {
-        // what should this activity do when fragment calls this method
-
-    }
-
-    @Override
-    public void onFragmentInteraction(GraphUser user) {
-        // what should this activity do when fragment calls this method
-        this.user=user;
-
-    }
-
-    public static GraphUser getUser(){
-        return user;
-    }
-
-    @Override
-    public void onFragmentInteraction(String [] albumList2, String [] coverPhoto2, String [] albumSource) {
-        // what should this activity do when fragment calls this method
-        this.albumList=albumList2;
-        this.coverPhoto=coverPhoto2;
-        this.albumImageSource=albumSource;
-        Log.d("myTag","This is my message");
-        Log.d("albumList","first position in array "+albumList[0]);
-      //  Log.d("photoLength","coverphoto length: "+coverPhoto.length);
-    }
-
-    public static String [] getAlbumList(){
-        return albumList;
-
-    }
-
-    public static String [] getAlbumCover(){
-        return coverPhoto;
-
-    }
-
-
-    public static String [] getAlbumImageSource(){
-        return albumImageSource;
-
-    }
 
 }
 

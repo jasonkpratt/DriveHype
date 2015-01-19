@@ -5,6 +5,7 @@ package com.drivehype.www.drivehype.provider;
  */
 
 import com.drivehype.www.drivehype.ui.MainActivity;
+import com.drivehype.www.drivehype.util.FB_Data_Pull;
 
 /**
  * Some simple test data to use for this sample app.
@@ -28,8 +29,8 @@ public class Images {
         switch (source){
             //fb selected
             case 0:
-                imageThumbUrls=MainActivity.getAlbumCover();
-                imageUrls=MainActivity.getAlbumImageSource();
+                imageThumbUrls= FB_Data_Pull.getAlbumCover();
+                imageUrls=FB_Data_Pull.getAlbumImageSource();
                 break;
 
            //internal memory selected

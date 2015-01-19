@@ -16,6 +16,7 @@
 
 package com.drivehype.www.drivehype.ui;
 
+import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
@@ -43,5 +44,8 @@ public class ImageGridActivity extends FragmentActivity {
             ft.add(android.R.id.content, new ImageGridFragment(), TAG);
             ft.commit();
         }
+
+        final ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 }
