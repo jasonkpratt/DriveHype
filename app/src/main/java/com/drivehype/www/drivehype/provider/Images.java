@@ -38,6 +38,11 @@ public class Images {
                 imageThumbUrls=imageThumbUrls2;
                 imageUrls=imageUrls2;
                 break;
+
+            //splash page
+            case 2:
+                imageThumbUrls=FB_Data_Pull.selectedAlbumPhotos;
+                imageUrls=FB_Data_Pull.selectedAlbumPhotos;
         }
 
     }

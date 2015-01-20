@@ -8,7 +8,13 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="80dp"
         android:layout_marginTop="30dp"
         android:gravity="center_horizontal"
         android:orientation="horizontal" >
@@ -35,12 +41,47 @@
             />
     </LinearLayout>
 
+
+
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_marginTop="30dp"
-        android:orientation="vertical"
-        >
+        android:layout_height="300dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical" >
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="#AFDEFE"
+            android:textSize="28sp"
+            android:typeface="serif"
+            android:textStyle="italic"
+            android:text="Now Playing" />
+
+        <ImageView
+            android:id="@+id/selectedAlbum"
+            android:layout_width="190dp"
+            android:layout_height="190dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/empty_photo" />
+
+        <TextView
+            android:id="@+id/albumTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            android:textColor="#AFDEFE"
+            android:textSize="20sp"
+            android:typeface="serif"
+            android:textStyle="italic"
+            android:text="" />
+
+      </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -89,6 +130,7 @@
                 facebook:preset_size="small" />
         </LinearLayout>
     </LinearLayout>
+
 
 
 

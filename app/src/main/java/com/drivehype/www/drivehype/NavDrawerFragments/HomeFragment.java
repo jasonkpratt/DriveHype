@@ -1,6 +1,9 @@
 package com.drivehype.www.drivehype.NavDrawerFragments;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -11,14 +14,25 @@ import android.net.Uri;
 import com.drivehype.www.drivehype.R;
 import com.drivehype.www.drivehype.ui.MainActivity;
 import com.drivehype.www.drivehype.util.FB_Data_Pull;
+import com.drivehype.www.drivehype.util.ImageFetcher;
 import com.facebook.*;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
+
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.facebook.widget.ProfilePictureView;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONException;
+
+import java.io.InputStream;
 
 
 public class HomeFragment extends Fragment {
@@ -27,7 +41,7 @@ public class HomeFragment extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
     private String mParam1;
     private OnFragmentInteractionListener mListener;
-
+    private boolean albumTitleSet=false;
     private static Bundle args;
     private static UiLifecycleHelper uiHelper ;
     protected boolean isResumed = false;
@@ -35,7 +49,12 @@ public class HomeFragment extends Fragment {
     private LoginButton authButton;
     private TextView userNameView;
     public static Session session;
+    private static ImageView albumImage;
+    private static TextView albumTitle;
     private static FB_Data_Pull FBData;
+    private ImageFetcher mImageFetcher;
+
+
     private Session.StatusCallback callback = new Session.StatusCallback() {
         @Override
         public void call(Session session, SessionState state, Exception exception) {
@@ -47,7 +66,8 @@ public class HomeFragment extends Fragment {
     public interface OnFragmentInteractionListener {
 
 
-        public void onFragmentInteraction(Uri uri);
+        public void onFragmentInteraction(GraphUser user);
+        public void onFragmentInteraction(Bitmap img);
 
     }
 
@@ -68,8 +88,10 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        int myImageThumbSize=getResources().getDimensionPixelSize(R.dimen.image_thumbnail_size);
         uiHelper = new UiLifecycleHelper(getActivity(), callback);
         uiHelper.onCreate(savedInstanceState);
+        mImageFetcher = new ImageFetcher(getActivity(), myImageThumbSize);
         if (getArguments() != null) {
           //  mParam1 = getArguments().getString(ARG_SECTION_NUMBER);
 
@@ -81,18 +103,26 @@ public class HomeFragment extends Fragment {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.fragment_home, container, false);
-            Log.d("newpic", "made it here, oh yeah");
+
+            //get FB user and albums, log in if needed
             session = Session.getActiveSession();
             profilePictureView = (ProfilePictureView) view.findViewById(R.id.selection_profile_pic);
             profilePictureView.setCropped(true);
             userNameView = (TextView) view.findViewById(R.id.profile_name);
+            albumTitle=(TextView)view.findViewById(R.id.albumTitle);
+            albumImage=(ImageView)view.findViewById(R.id.selectedAlbum);
             authButton=(LoginButton) view.findViewById(R.id.authButton);
             authButton.setFragment(this);
             FBData=FB_Data_Pull.getInstance(this);
+
             if(FB_Data_Pull.user!=null) {
                profilePictureView.setProfileId(FB_Data_Pull.user.getId());
                 Log.d("newpic1", "userData"+FB_Data_Pull.user.toString());
             }
+
+             albumTitle.setText("Album Title: "+FB_Data_Pull.albumTitle);
+            if(MainActivity.mapIsSet)
+                albumImage.setImageBitmap(MainActivity.splashMap);
             return view;
             }
 
@@ -164,7 +194,22 @@ public class HomeFragment extends Fragment {
 
         profilePictureView.setProfileId(FB_Data_Pull.user.getId());
         Log.d("newpic3", "setting picture" + FB_Data_Pull.user.getId().toString());
+        mListener.onFragmentInteraction(user);
 
+
+    }
+
+    public void setAlbumPicture(String url){
+
+    Log.d("albumView","albumView obj"+albumImage.toString());
+        new ImageDownloader().execute(url);
+    }
+
+
+    public void setAlbumTitle( String title) {
+
+
+        albumTitle.setText("Album Title: "+title);
     }
 
 
@@ -175,13 +220,13 @@ public class HomeFragment extends Fragment {
         if (session != null && session.isOpened()) {
             // If the session state is open:
             // Show the authenticated fragment
-            userNameView.setVisibility(View.INVISIBLE);
-            authButton.setVisibility(View.INVISIBLE);
+            //userNameView.setVisibility(View.INVISIBLE);
+           // authButton.setVisibility(View.INVISIBLE);
 
 
                if(FB_Data_Pull.user!=null) {
                    profilePictureView.setProfileId(FB_Data_Pull.user.getId());
-                   Log.d("newpic2", "userData" + FB_Data_Pull.user.getId().toString());
+                   Log.d("newpic2", "userData" + FB_Data_Pull.user.toString());
                }
 
 
@@ -192,6 +237,154 @@ public class HomeFragment extends Fragment {
 
         }
     }
+
+
+
+
+private class ImageDownloader extends AsyncTask<String, Void, Bitmap> {
+
+
+    @Override
+
+    protected Bitmap doInBackground(String... param) {
+
+        // TODO Auto-generated method stub
+
+        return downloadBitmap(param[0]);
+
+    }
+
+
+    @Override
+
+    protected void onPreExecute() {
+
+        Log.i("Async", "onPreExecute Called");
+
+        // simpleWaitDialog = ProgressDialog.show(ImageDownladerActivity.this,
+
+        //   "Wait", "Downloading Image");
+
+
+
+    }
+
+
+
+    @Override
+
+    protected void onPostExecute(Bitmap result) {
+
+        Log.i("Async", "onPostExecute Called");
+
+        albumImage.setImageBitmap(result);
+
+        mListener.onFragmentInteraction(result);
+
+
+        //simpleWaitDialog.dismiss();
+
+
+
+    }
+
+
+
+    private Bitmap downloadBitmap(String url) {
+
+        // initilize the default HTTP client object
+
+        final DefaultHttpClient client = new DefaultHttpClient();
+
+
+
+        //forming a HttoGet request
+
+        final HttpGet getRequest = new HttpGet(url);
+
+        try {
+
+
+
+            HttpResponse response = client.execute(getRequest);
+
+
+
+            //check 200 OK for success
+
+            final int statusCode = response.getStatusLine().getStatusCode();
+
+
+
+            if (statusCode != HttpStatus.SC_OK) {
+
+                Log.w("ImageDownloader", "Error " + statusCode +
+
+                        " while retrieving bitmap from " + url);
+
+                return null;
+
+
+
+            }
+
+
+
+            final HttpEntity entity = response.getEntity();
+
+            if (entity != null) {
+
+                InputStream inputStream = null;
+
+                try {
+
+                    // getting contents from the stream
+
+                    inputStream = entity.getContent();
+
+
+
+                    // decoding stream data back into image Bitmap that android understands
+
+                    final Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                    mListener.onFragmentInteraction(bitmap);
+
+
+
+
+                    return bitmap;
+
+                } finally {
+
+                    if (inputStream != null) {
+
+                        inputStream.close();
+
+                    }
+
+                    entity.consumeContent();
+
+                }
+
+            }
+
+        } catch (Exception e) {
+
+            getRequest.abort();
+
+            Log.e("ImageDownloader", "Something went wrong while" +
+
+                    " retrieving bitmap from " + url + e.toString());
+
+        }
+
+
+
+        return null;
+
+    }
+
+}
 
 
 }

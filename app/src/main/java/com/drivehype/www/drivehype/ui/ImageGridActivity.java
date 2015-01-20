@@ -49,3 +49,4 @@ public class ImageGridActivity extends FragmentActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
 }
+

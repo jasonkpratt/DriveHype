@@ -57,6 +57,58 @@
             android:label="title_facebook_login" >
         </activity>
 
+        <activity
+            android:name=".ui.AppPermissions"
+            android:label="@string/title_activity_app_permissions"
+            android:parentActivityName=".ui.MainActivity"
+            android:theme="@style/AppTheme2" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.drivehype.www.drivehype.ui.MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".ui.Account"
+            android:label="@string/title_activity_account"
+            android:parentActivityName=".ui.MainActivity"
+            android:theme="@style/AppTheme2" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.drivehype.www.drivehype.ui.MainActivity" />
+        </activity>
+
+
+        <activity
+            android:name=".ui.Rate"
+            android:label="@string/title_activity_rate"
+            android:parentActivityName=".ui.MainActivity"
+            android:theme="@style/AppTheme2" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.drivehype.www.drivehype.ui.MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".ui.Share"
+            android:label="@string/title_activity_share"
+            android:parentActivityName=".ui.MainActivity"
+            android:theme="@style/AppTheme2" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.drivehype.www.drivehype.ui.MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".ui.Settings"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".ui.MainActivity"
+            android:theme="@style/AppTheme2" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.drivehype.www.drivehype.ui.MainActivity" />
+        </activity>
+
+
     </application>
 
 </manifest>

@@ -1,6 +1,9 @@
 package com.drivehype.www.drivehype.ui;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.media.Image;
 import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
@@ -30,10 +33,15 @@ import com.drivehype.www.drivehype.R;
 import com.drivehype.www.drivehype.provider.Images;
 import com.drivehype.www.drivehype.ui.ImageDetailActivity;
 import com.drivehype.www.drivehype.util.FB_Data_Pull;
+import com.drivehype.www.drivehype.util.ImageFetcher;
 import com.facebook.Session;
 import com.facebook.model.GraphUser;
 
 import android.util.Log;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.security.Permission;
 
 
 public class MainActivity extends ActionBarActivity
@@ -43,12 +51,15 @@ public class MainActivity extends ActionBarActivity
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
     private NavigationDrawerFragment mNavigationDrawerFragment;
-
+    private ImageFetcher mImageFetcher;
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
     private MenuItem logoutItem;
+    public static Bitmap splashMap;
+    public static boolean mapIsSet=false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +126,7 @@ public class MainActivity extends ActionBarActivity
                 case 12:
                     objFragment = ActivitiesFragment.newInstance();
                     break;
+
 
             }
 
@@ -207,18 +219,99 @@ public class MainActivity extends ActionBarActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case R.id.account:
+                showAccount();
+                return true;
+            case R.id.permissions:
+                showPermissions();
+                return true;
+            case R.id.share:
+                shareApp();
+                return true;
+            case R.id.rate:
+                rate();
+                return true;
+            case R.id.action_logout:
+                logOut();
+                return true;
+            case R.id.action_settings:
+                settings();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void showAccount(){
+
+        Intent i = new Intent(MainActivity.this, Account.class);
+        startActivity(i);
+
+    }
+    private void shareApp() {
+        Intent i = new Intent(MainActivity.this, Share.class);
+        startActivity(i);
+
+    }
+
+    private void rate() {
+        Intent i = new Intent(MainActivity.this, Rate.class);
+        startActivity(i);
+
+    }
+
+    private void settings() {
+        Intent i = new Intent(MainActivity.this, Settings.class);
+        startActivity(i);
+
+    }
+
+    private void logOut() {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Are you sure you want to log out? ");
+            builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    //TODO
+                    dialog.dismiss();
+                }
+            });
+            builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    //TODO
+                    dialog.dismiss();
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
         }
 
-        return super.onOptionsItemSelected(item);
+
+    private void showPermissions() {
+        Intent i = new Intent(MainActivity.this, AppPermissions.class);
+        startActivity(i);
+
     }
 
 
 
     @Override
     public void onFragmentInteraction(Uri uri) {
+        // what should this activity do when fragment calls this method
+    }
+
+    @Override
+    public void onFragmentInteraction(GraphUser user) {
+        logoutItem.setTitle(user.getFirstName()+": Sign Out");
+        // what should this activity do when fragment calls this method
+    }
+
+    @Override
+    public void onFragmentInteraction (Bitmap img) {
+
+        splashMap=img;
+        mapIsSet=true;
         // what should this activity do when fragment calls this method
     }
 

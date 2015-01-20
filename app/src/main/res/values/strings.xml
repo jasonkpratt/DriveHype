@@ -14,7 +14,6 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-
 <resources>
 
     <string name="app_name">DriveHype</string>
@@ -52,6 +51,10 @@
     <string name="clear_cache_complete_toast">Caches have been cleared</string>
     <string name="imageview_description">Image Thumbnail</string>
     <string name="no_network_connection_toast">No network connection found</string>
-
+    <string name="title_activity_app_permissions">AppPermissions</string>
+    <string name="title_activity_account">Account</string>
+    <string name="title_activity_rate">Rate</string>
+    <string name="title_activity_share">Share</string>
+    <string name="title_activity_settings">Settings</string>
 
 </resources>
