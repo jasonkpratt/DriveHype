@@ -44,8 +44,8 @@ public class FB_Data_Pull {
         session.open((AccessToken.createFromExistingAccessToken(session.getAccessToken(),session.getExpirationDate(),null,null,session.getPermissions())),null);
        permissions=session.getPermissions();
         Log.d("zerror","session:"+session.toString());
-       this.makeMeRequest();
-        this.makeAlbumRequest();
+        this.makeMeRequest();
+        //this.makeAlbumRequest();
     }
 
     public static FB_Data_Pull getInstance(HomeFragment incomingFrag )
