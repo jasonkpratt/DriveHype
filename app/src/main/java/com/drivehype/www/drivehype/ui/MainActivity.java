@@ -192,7 +192,7 @@ public class MainActivity extends ActionBarActivity
         if(FB_Data_Pull.user!=null)
         logoutItem.setTitle(FB_Data_Pull.user.getFirstName()+": Sign Out");
         else
-            logoutItem.setTitle("Log In");
+            logoutItem.setTitle("Log Out");
 
 
     }
