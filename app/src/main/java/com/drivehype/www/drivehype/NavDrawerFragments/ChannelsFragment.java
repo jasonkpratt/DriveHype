@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 
 import com.drivehype.www.drivehype.R;
 
@@ -55,17 +56,28 @@ public class ChannelsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        //setContentView(R.layout.fragment_channels);  // MOVED TO onCreateView
+
+        //Uri uri = Uri.parse("http://www.example.com");
+        //Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        //startActivity(intent);
+
+        //WebView photoWebView = (WebView) findViewById(R.id.webview);  // MOVED TO onCreateView
+
+        //photoWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        //photoWebView.getSettings().setJavaScriptEnabled(true);  // MOVED TO onCreateView
+        //photoWebView.loadUrl("http://www.drivehype.com/albums.html");  // MOVED TO onCreateView
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_channels, container, false);
+        View webView = inflater.inflate(R.layout.fragment_channels, container, false);
+        WebView photoWebView = (WebView) webView.findViewById(R.id.webview);
+        photoWebView.getSettings().setJavaScriptEnabled(true);
+        photoWebView.loadUrl("http://www.drivehype.com/albums.html");
+        return webView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
