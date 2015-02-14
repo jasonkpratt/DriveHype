@@ -1925,7 +1925,11 @@
       <created>1423905165229</created>
       <updated>1423905165229</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="WebView for photos webpage completed. Bluetooth completed.">
+      <created>1423951652030</created>
+      <updated>1423951652030</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TodoView" selected-index="1">
