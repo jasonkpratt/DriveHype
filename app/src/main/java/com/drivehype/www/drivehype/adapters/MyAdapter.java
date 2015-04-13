@@ -35,7 +35,7 @@ public class MyAdapter extends ArrayAdapter<String> {
         int sectionPosition=0;
 
 
-        if(position==1||position==5||position==9)
+        if(position==1||position==4||position==9)
         {
             //LayoutInflater inflater=context.getLayoutInflater();
             LayoutInflater inflater = (LayoutInflater) context
@@ -47,7 +47,7 @@ public class MyAdapter extends ArrayAdapter<String> {
             TextView txtTitle = (TextView) rowView.findViewById(R.id.text);
             ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
             //TextView extratxt = (TextView) rowView.findViewById(R.id.textView1);
-            if (position==5)
+            if (position==4)
                 sectionPosition=1;
             if(position==9)
                 sectionPosition=2;

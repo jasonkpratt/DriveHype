@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
@@ -16,36 +15,28 @@ import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
 
 import com.drivehype.www.drivehype.NavDrawerFragments.ActivitiesFragment;
+import com.drivehype.www.drivehype.NavDrawerFragments.AllMediaFragment;
 import com.drivehype.www.drivehype.NavDrawerFragments.BluetoothFragment;
-import com.drivehype.www.drivehype.NavDrawerFragments.ChannelsFragment;
-import com.drivehype.www.drivehype.NavDrawerFragments.EncountersFragment;
+import com.drivehype.www.drivehype.NavDrawerFragments.PhotoAlbumsFragment;
+import com.drivehype.www.drivehype.NavDrawerFragments.PublicAlbumsFragment;
+import com.drivehype.www.drivehype.NavDrawerFragments.TextAlbumsFragment;
 
 import com.drivehype.www.drivehype.NavDrawerFragments.FriendsFragment;
 import com.drivehype.www.drivehype.NavDrawerFragments.HomeFragment;
 import com.drivehype.www.drivehype.NavDrawerFragments.MessageFragment;
-import com.drivehype.www.drivehype.NavDrawerFragments.MyScreenFragment;
 import com.drivehype.www.drivehype.NavDrawerFragments.NavigationDrawerFragment;
-import com.drivehype.www.drivehype.NavDrawerFragments.NearByFragment;
 import com.drivehype.www.drivehype.NavDrawerFragments.PullFragment;
 import com.drivehype.www.drivehype.NavDrawerFragments.PushFragment;
-import com.drivehype.www.drivehype.NavDrawerFragments.WIFI_Fragment;
+import com.drivehype.www.drivehype.NavDrawerFragments.WiFiFragment;
 import com.drivehype.www.drivehype.R;
 import com.drivehype.www.drivehype.provider.Images;
-import com.drivehype.www.drivehype.ui.ImageDetailActivity;
 import com.drivehype.www.drivehype.util.FB_Data_Pull;
 import com.drivehype.www.drivehype.util.ImageFetcher;
-import com.facebook.Session;
 import com.facebook.model.GraphUser;
-
-import android.util.Log;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import java.security.Permission;
 
 
 public class MainActivity extends ActionBarActivity
-        implements HomeFragment.OnFragmentInteractionListener,WIFI_Fragment.OnFragmentInteractionListener,NearByFragment.OnFragmentInteractionListener,MyScreenFragment.OnFragmentInteractionListener,FriendsFragment.OnFragmentInteractionListener,EncountersFragment.OnFragmentInteractionListener,ChannelsFragment.OnFragmentInteractionListener,BluetoothFragment.OnFragmentInteractionListener,ActivitiesFragment.OnFragmentInteractionListener,PullFragment.OnFragmentInteractionListener,PushFragment.OnFragmentInteractionListener,MessageFragment.OnFragmentInteractionListener,NavigationDrawerFragment.NavigationDrawerCallbacks {
+        implements HomeFragment.OnFragmentInteractionListener,WiFiFragment.OnFragmentInteractionListener,AllMediaFragment.OnFragmentInteractionListener,FriendsFragment.OnFragmentInteractionListener,TextAlbumsFragment.OnFragmentInteractionListener,PhotoAlbumsFragment.OnFragmentInteractionListener,PublicAlbumsFragment.OnFragmentInteractionListener,BluetoothFragment.OnFragmentInteractionListener,ActivitiesFragment.OnFragmentInteractionListener,PullFragment.OnFragmentInteractionListener,PushFragment.OnFragmentInteractionListener,MessageFragment.OnFragmentInteractionListener,NavigationDrawerFragment.NavigationDrawerCallbacks {
 
  /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -88,42 +79,36 @@ public class MainActivity extends ActionBarActivity
                     objFragment = PushFragment.newInstance(position + 1);
                     break;
                 case 2:
-                    objFragment = WIFI_Fragment.newInstance();
+                    objFragment = WiFiFragment.newInstance();
                    break;
                 case 3:
                     objFragment = BluetoothFragment.newInstance();
                     break;
                 case 4:
-                    objFragment = MyScreenFragment.newInstance();
+                    objFragment = PhotoAlbumsFragment.newInstance();
                     break;
                 case 5:
-                    //fb images
-                    final Intent i= new Intent( this,ImageGridActivity.class);
-                    Images.setImageSource(0);
-                    startActivity(i);
-                    return;
+                    objFragment = TextAlbumsFragment.newInstance();
+                    break;
                 case 6:
+                    objFragment = PublicAlbumsFragment.newInstance();
+                    break;
+                case 7:
+                    objFragment = AllMediaFragment.newInstance();
+                    break;
+                case 8:
                     //storage images
                     final Intent intent= new Intent( this,ImageGridActivity.class);
                     Images.setImageSource(1);
                     startActivity(intent);
                     return;
-                case 7:
+                case 9:
                     objFragment = FriendsFragment.newInstance();
                     break;
-                case 8:
-                    objFragment = ChannelsFragment.newInstance();
-                    break;
-                case 9:
+                case 10:
                     objFragment = MessageFragment.newInstance(position + 1);
                     break;
-                case 10:
-                    objFragment = EncountersFragment.newInstance();
-                    break;
                 case 11:
-                    objFragment = NearByFragment.newInstance();
-                    break;
-                case 12:
                     objFragment = ActivitiesFragment.newInstance();
                     break;
 
@@ -133,52 +118,47 @@ public class MainActivity extends ActionBarActivity
 
             onSectionAttached(position);
             FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.container, objFragment)
-                    .commit();
+            fragmentManager.beginTransaction().replace(R.id.container, objFragment).commit();
 
     }
 
     public void onSectionAttached(int number) {
         switch (number+1) {
             case 1:
-                mTitle = getString(R.string.title_section1);
+                mTitle = "Home";
                 break;
             case 2:
-                mTitle = getString(R.string.title_section3);
+                mTitle = "Flex Display";
                 break;
             case 3:
-                mTitle = "WIFI";
+                mTitle = "WiFi";
                 break;
             case 4:
                 mTitle = "Bluetooth";
                 break;
             case 5:
-                mTitle = "My Screen";
+                mTitle = "Photo Albums";
                 break;
             case 6:
-                mTitle = "Facebook";
+                mTitle = "Text Albums";
                 break;
             case 7:
-                mTitle = "Local Storage";
+                mTitle = "Public Albums";
                 break;
             case 8:
-                mTitle= "Friends";
+                mTitle =  "All Media";
                 break;
             case 9:
-                mTitle=  "Channels";
+                mTitle =  "Stock Photos";
                 break;
             case 10:
-                mTitle=  "Messages";
+                mTitle =  "Friends";
                 break;
             case 11:
-                mTitle=  "Encounters";
+                mTitle =  "Messaging";
                 break;
             case 12:
-                mTitle=  "Near By";
-                break;
-            case 13:
-                mTitle=  "Activities";
+                mTitle =  "Activities";
                 break;
         }
 
@@ -192,7 +172,7 @@ public class MainActivity extends ActionBarActivity
         if(FB_Data_Pull.user!=null)
         logoutItem.setTitle(FB_Data_Pull.user.getFirstName()+": Sign Out");
         else
-            logoutItem.setTitle("Log In");
+            logoutItem.setTitle("Log Out");
 
 
     }

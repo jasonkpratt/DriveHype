@@ -103,26 +103,6 @@
                 android:value="com.drivehype.www.drivehype.ui.MainActivity" />
         </activity>
 
-        <activity
-            android:name=".ui.BluetoothActivity"
-            android:label="@string/title_activity_bluetooth"
-            android:parentActivityName=".ui.MainActivity"
-            android:theme="@style/AppTheme2" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.drivehype.www.drivehype.ui.MainActivity" />
-        </activity>
-
-        <activity
-            android:name=".ui.PhotoWebView"
-            android:label="@string/title_activity_photowebview"
-            android:parentActivityName=".ui.MainActivity"
-            android:theme="@style/AppTheme2" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.drivehype.www.drivehype.ui.MainActivity" />
-        </activity>
-
     </application>
 
 </manifest>

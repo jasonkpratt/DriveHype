@@ -27,9 +27,9 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_message">MessageActivity</string>
     <string name="title_activity_main_activity2">MainActivity2</string>
-    <string name="title_section1">Home</string>
+    <string name="title_home">Home</string>
     <string name="title_section2">Play</string>
-    <string name="title_section3">Get Media</string>
+    <string name="title_myMedia">My Media</string>
     <string name="title_section4">Neighbors</string>
     <string name="get_started">To get started, log in using Facebook</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
