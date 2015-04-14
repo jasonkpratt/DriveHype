@@ -98,51 +98,42 @@ public class AllMediaFragment extends Fragment {
         mediaWebView.loadUrl("http://www.drivehype.com/allMedia.html");
         CookieManager.getInstance().setAcceptCookie(true);
 
-        /*
-        android.util.Log.d(this.getClass().getSimpleName()," " + getCookie(url, oneText));
-        android.util.Log.d(this.getClass().getSimpleName()," " + getCookie(url, selectedText));
-        android.util.Log.d(this.getClass().getSimpleName()," " + getCookie(url, albumID));
-        */
-
-        mediaWebView.setOnTouchListener(new View.OnTouchListener(){
+        mediaWebView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent e){
-                if (1==1){
+            public void onClick(View v) {
+
                     String cookies = CookieManager.getInstance().getCookie(url);
                     android.util.Log.d(this.getClass().getSimpleName(), "Cookies: " + cookies);
-                    oneText = ""+getCookie(url, oneText);
-                    android.util.Log.d(this.getClass().getSimpleName(),"oneText " + getCookie(url, "oneText"));
-                    selectedText = ""+getCookie(url, selectedText);
-                    android.util.Log.d(this.getClass().getSimpleName(),"selectedText " + getCookie(url, "selectedText"));
-                    albumID = ""+getCookie(url, albumID);
-                    android.util.Log.d(this.getClass().getSimpleName(),"albumID " + getCookie(url, "albumID"));
+                    oneText = getCookie(url, "oneText");
+                    android.util.Log.d(this.getClass().getSimpleName(), "oneText " + oneText);
+                    selectedText = getCookie(url, "selectedText");
+                    android.util.Log.d(this.getClass().getSimpleName(), "selectedText " + selectedText);
+                    albumID = getCookie(url, "albumID");
+                    android.util.Log.d(this.getClass().getSimpleName(), "albumID " + albumID);
 
-                    makePostRequest();
-
-                    //postData();
-
-                    /*HttpClient client = new DefaultHttpClient();
+                    HttpClient client = new DefaultHttpClient();
                     HttpPost post = new HttpPost(url);
                     post.setHeader("Content-type", "application/json");
                     post.setHeader("Accept", "application/json");
                     JSONObject obj = new JSONObject();
+
                     try {
-                        obj.put("oneText", getCookie(url, "oneText"));
-                        obj.put("selectedText", getCookie(url, "selectedText"));
-                        obj.put("albumID", getCookie(url, "albumID"));
+                        obj.put("oneText", oneText);
+                        obj.put("selectedText", selectedText);
+                        obj.put("albumID", albumID);
                         post.setEntity(new StringEntity(obj.toString(), "UTF-8"));
                         HttpResponse response = client.execute(post);
+                        String respStr = EntityUtils.toString(response.getEntity());
                     }catch(JSONException jexc){
                         android.util.Log.d(this.getClass().getSimpleName(), jexc.toString());
                     }catch(IOException ioexc){
                         android.util.Log.d(this.getClass().getSimpleName(), ioexc.toString());
-                    }*/
+                    }
 
-                    //String query = "document.cookie=oneText=" + getCookie(url, "oneText") +
-                    //        "document.cookie=selectedText=" + getCookie(url, "selectedText") +
-                    //        "document.cookie=albumID=" + getCookie(url, "albumID");
-                }
-                return false;
+                //String query = "document.cookie=oneText=" + getCookie(url, "oneText") +
+                //        "document.cookie=selectedText=" + getCookie(url, "selectedText") +
+                //        "document.cookie=albumID=" + getCookie(url, "albumID");
+                //return false;
             }
         });
 
