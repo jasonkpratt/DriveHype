@@ -111,35 +111,36 @@ public class AllMediaFragment extends Fragment {
                     albumID = getCookie(url, "albumID");
                     android.util.Log.d(this.getClass().getSimpleName(), "albumID " + albumID);
 
+                    postData();
+
+                    /*
                     HttpClient client = new DefaultHttpClient();
-                    HttpPost post = new HttpPost(url);
+                    HttpPost post = new HttpPost("http://www.drivehype.com/rest/rest.php/allMedia");
                     post.setHeader("Content-type", "application/json");
                     post.setHeader("Accept", "application/json");
                     JSONObject obj = new JSONObject();
 
                     try {
-                        obj.put("oneText", oneText);
-                        obj.put("selectedText", selectedText);
-                        obj.put("albumID", albumID);
+                        //obj.put("oneText", oneText);
+                        //obj.put("selectedText", selectedText);
+                        obj.put("id", albumID);
                         post.setEntity(new StringEntity(obj.toString(), "UTF-8"));
                         HttpResponse response = client.execute(post);
                         String respStr = EntityUtils.toString(response.getEntity());
+                        android.util.Log.d(this.getClass().getSimpleName(), "respStr: " + respStr);
                     }catch(JSONException jexc){
                         android.util.Log.d(this.getClass().getSimpleName(), jexc.toString());
                     }catch(IOException ioexc){
                         android.util.Log.d(this.getClass().getSimpleName(), ioexc.toString());
-                    }
-
-                //String query = "document.cookie=oneText=" + getCookie(url, "oneText") +
-                //        "document.cookie=selectedText=" + getCookie(url, "selectedText") +
-                //        "document.cookie=albumID=" + getCookie(url, "albumID");
-                //return false;
+                    }*/
             }
         });
 
         return allMediaWebView;
 
     }
+
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -180,56 +181,25 @@ public class AllMediaFragment extends Fragment {
         return cookieValue;
     }
 
-    private void makePostRequest() {
-        HttpClient client = new DefaultHttpClient();
-        HttpPost post = new HttpPost("http://www.drivehype.com/allMedia.html#");
-        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-        pairs.add(new BasicNameValuePair("oneText", getCookie(url, "oneText")));
-        pairs.add(new BasicNameValuePair("selectedText", getCookie(url, "selectedText")));
-        pairs.add(new BasicNameValuePair("albumID", getCookie(url, "albumID")));
-        try {
-            post.setEntity(new UrlEncodedFormEntity(pairs));
-        } catch (UnsupportedEncodingException uee) {
-            android.util.Log.d(this.getClass().getSimpleName(), uee.toString());
-        }
-        try {
-            HttpResponse response = client.execute(post);
-        } catch (ClientProtocolException cpe) {
-            cpe.printStackTrace();
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
-    }
-
-    /*public void postData(){
+    public void postData(){
         HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost(url);
+        HttpPost httppost = new HttpPost("http://www.drivehype.com/rest/rest.php/elliott");
         try{
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-            nameValuePairs.add(new BasicNameValuePair("oneText", getCookie(url, "oneText")));
-            nameValuePairs.add(new BasicNameValuePair("selectedText", getCookie(url, "selectedText")));
-            nameValuePairs.add(new BasicNameValuePair("albumID", getCookie(url, "albumID")));
+            //nameValuePairs.add(new BasicNameValuePair("oneText", oneText));
+            //nameValuePairs.add(new BasicNameValuePair("selectedText", selectedText));
+            nameValuePairs.add(new BasicNameValuePair("id", "helloelliott"));
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
             HttpResponse response = httpclient.execute(httppost);
+            android.util.Log.d(this.getClass().getSimpleName(), "response: " + response);
         } catch (ClientProtocolException cpe) {
             android.util.Log.d(this.getClass().getSimpleName(), cpe.toString());
         } catch (IOException ioe) {
             android.util.Log.d(this.getClass().getSimpleName(), ioe.toString());
         }
-    }*/
+    }
 
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
