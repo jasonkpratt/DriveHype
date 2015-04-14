@@ -16,6 +16,13 @@
         <dex dex="C:\Users\Elliott Goldman\Documents\GitHub\DriveHype\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.2-06ad61c6f6ddd240a3033942bf761ca0bb818b45.jar" />
     </item>
     <item
+        jar="C:\Users\Elliott Goldman\Documents\GitHub\DriveHype\app\build\intermediates\exploded-aar\DriveHype\volley\unspecified\classes.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="3e76b31f8329fe7c61fd3482eff3c956c5509d3c">
+        <dex dex="C:\Users\Elliott Goldman\Documents\GitHub\DriveHype\app\build\intermediates\pre-dexed\debug\classes-64fdc7a87ad0a275905396b4c9558006821b843d.jar" />
+    </item>
+    <item
         jar="C:\Users\Elliott Goldman\Documents\GitHub\DriveHype\app\build\intermediates\exploded-aar\com.facebook.android\facebook\3.21.1\classes.jar"
         jumboMode="false"
         revision="21.1.1"

@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.CookieManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -69,6 +70,7 @@ public class TextAlbumsFragment extends Fragment {
         textWebView.setWebViewClient(new WebViewClient());
         textWebView.getSettings().setJavaScriptEnabled(true);
         textWebView.loadUrl("http://www.drivehype.com/textAlbums.html");
+        CookieManager.getInstance().setAcceptCookie(true);
         return textAlbumWebView;
 
 

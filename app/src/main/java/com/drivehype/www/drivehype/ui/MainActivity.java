@@ -146,19 +146,19 @@ public class MainActivity extends ActionBarActivity
                 mTitle = "Public Albums";
                 break;
             case 8:
-                mTitle =  "All Media";
+                mTitle = "All Media";
                 break;
             case 9:
-                mTitle =  "Stock Photos";
+                mTitle = "Stock Photos";
                 break;
             case 10:
-                mTitle =  "Friends";
+                mTitle = "Friends";
                 break;
             case 11:
-                mTitle =  "Messaging";
+                mTitle = "Messaging";
                 break;
             case 12:
-                mTitle =  "Activities";
+                mTitle = "Activities";
                 break;
         }
 
@@ -173,8 +173,6 @@ public class MainActivity extends ActionBarActivity
         logoutItem.setTitle(FB_Data_Pull.user.getFirstName()+": Sign Out");
         else
             logoutItem.setTitle("Log Out");
-
-
     }
 
     @Override
@@ -228,6 +226,7 @@ public class MainActivity extends ActionBarActivity
         startActivity(i);
 
     }
+
     private void shareApp() {
         Intent i = new Intent(MainActivity.this, Share.class);
         startActivity(i);
