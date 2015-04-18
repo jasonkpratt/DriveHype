@@ -4,11 +4,13 @@ import android.app.Activity;
 import android.net.Uri;
 import android.nfc.Tag;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.webkit.CookieManager;
 import android.webkit.WebView;
@@ -26,11 +28,14 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.ByteArrayBuffer;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
@@ -82,13 +87,15 @@ public class AllMediaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         View allMediaWebView = inflater.inflate(R.layout.fragment_allmedia, container, false);
         WebView mediaWebView = (WebView) allMediaWebView.findViewById(R.id.mediawebview);
         mediaWebView.setWebViewClient(new WebViewClient(){
             @Override
             public void onPageFinished(WebView view, String url){
-                //String cookies = CookieManager.getInstance().getCookie(url);
-                //android.util.Log.d(this.getClass().getSimpleName(), "Cookies: " + cookies);
+                String cookies = CookieManager.getInstance().getCookie(url);
+                android.util.Log.d(this.getClass().getSimpleName(), "Cookies: " + cookies);
                 android.util.Log.d(this.getClass().getSimpleName()," " + getCookie(url, "oneText"));
                 android.util.Log.d(this.getClass().getSimpleName()," " + getCookie(url, "selectedText"));
                 android.util.Log.d(this.getClass().getSimpleName()," " + getCookie(url, "albumID"));
@@ -98,49 +105,28 @@ public class AllMediaFragment extends Fragment {
         mediaWebView.loadUrl("http://www.drivehype.com/allMedia.html");
         CookieManager.getInstance().setAcceptCookie(true);
 
-        mediaWebView.setOnClickListener(new View.OnClickListener() {
+        allMediaWebView.setOnTouchListener(new View.OnTouchListener(){
             @Override
-            public void onClick(View v) {
+            public boolean onTouch(View v, MotionEvent event)
+            {
+                String cookies = CookieManager.getInstance().getCookie(url);
+                android.util.Log.d(this.getClass().getSimpleName(), "Cookies: " + cookies);
+                oneText = getCookie(url, "oneText");
+                android.util.Log.d(this.getClass().getSimpleName(), "oneText " + oneText);
+                selectedText = getCookie(url, "selectedText");
+                android.util.Log.d(this.getClass().getSimpleName(), "selectedText " + selectedText);
+                albumID = getCookie(url, "albumID");
+                android.util.Log.d(this.getClass().getSimpleName(), "albumID " + albumID);
 
-                    String cookies = CookieManager.getInstance().getCookie(url);
-                    android.util.Log.d(this.getClass().getSimpleName(), "Cookies: " + cookies);
-                    oneText = getCookie(url, "oneText");
-                    android.util.Log.d(this.getClass().getSimpleName(), "oneText " + oneText);
-                    selectedText = getCookie(url, "selectedText");
-                    android.util.Log.d(this.getClass().getSimpleName(), "selectedText " + selectedText);
-                    albumID = getCookie(url, "albumID");
-                    android.util.Log.d(this.getClass().getSimpleName(), "albumID " + albumID);
+                android.util.Log.d(this.getClass().getSimpleName(), "entering postData();");
+                postData();
+                android.util.Log.d(this.getClass().getSimpleName(), "returned postData();");
 
-                    postData();
-
-                    /*
-                    HttpClient client = new DefaultHttpClient();
-                    HttpPost post = new HttpPost("http://www.drivehype.com/rest/rest.php/allMedia");
-                    post.setHeader("Content-type", "application/json");
-                    post.setHeader("Accept", "application/json");
-                    JSONObject obj = new JSONObject();
-
-                    try {
-                        //obj.put("oneText", oneText);
-                        //obj.put("selectedText", selectedText);
-                        obj.put("id", albumID);
-                        post.setEntity(new StringEntity(obj.toString(), "UTF-8"));
-                        HttpResponse response = client.execute(post);
-                        String respStr = EntityUtils.toString(response.getEntity());
-                        android.util.Log.d(this.getClass().getSimpleName(), "respStr: " + respStr);
-                    }catch(JSONException jexc){
-                        android.util.Log.d(this.getClass().getSimpleName(), jexc.toString());
-                    }catch(IOException ioexc){
-                        android.util.Log.d(this.getClass().getSimpleName(), ioexc.toString());
-                    }*/
+                return false;
             }
         });
-
         return allMediaWebView;
-
     }
-
-
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -182,23 +168,46 @@ public class AllMediaFragment extends Fragment {
     }
 
     public void postData(){
-        HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost("http://www.drivehype.com/rest/rest.php/elliott");
+        HttpClient httpClient = new DefaultHttpClient();
+        HttpPost httpPost = new HttpPost("http://www.drivehype.com/rest/rest.php/pushData");
         try{
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-            //nameValuePairs.add(new BasicNameValuePair("oneText", oneText));
-            //nameValuePairs.add(new BasicNameValuePair("selectedText", selectedText));
-            nameValuePairs.add(new BasicNameValuePair("id", "helloelliott"));
-            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
-            HttpResponse response = httpclient.execute(httppost);
-            android.util.Log.d(this.getClass().getSimpleName(), "response: " + response);
-        } catch (ClientProtocolException cpe) {
+            oneText = getCookie(url, "oneText");
+            android.util.Log.d(this.getClass().getSimpleName(), "oneText " + oneText);
+            selectedText = getCookie(url, "selectedText");
+            android.util.Log.d(this.getClass().getSimpleName(), "selectedText " + selectedText);
+            albumID = getCookie(url, "albumID");
+            android.util.Log.d(this.getClass().getSimpleName(), "albumID " + albumID);
+
+            nameValuePairs.add(new BasicNameValuePair("oneText", oneText));
+            nameValuePairs.add(new BasicNameValuePair("selectedText", selectedText));
+            nameValuePairs.add(new BasicNameValuePair("id", albumID));
+            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            android.util.Log.d(this.getClass().getSimpleName(), "setEntity");
+
+            HttpResponse response = httpClient.execute(httpPost);
+            android.util.Log.d(this.getClass().getSimpleName(), "response executed");
+
+            InputStream is = response.getEntity().getContent();
+            BufferedInputStream bis = new BufferedInputStream(is);
+            ByteArrayBuffer baf = new ByteArrayBuffer(20);
+
+            int current = 0;
+            while((current = bis.read()) != -1){
+                baf.append((byte)current);
+            }
+
+            // Convert the Bytes read to a String.
+            String text = new String(baf.toByteArray());
+
+            android.util.Log.d(this.getClass().getSimpleName(), "response: " + text);
+        } catch(ClientProtocolException cpe){
             android.util.Log.d(this.getClass().getSimpleName(), cpe.toString());
-        } catch (IOException ioe) {
+        } catch(IOException ioe){
             android.util.Log.d(this.getClass().getSimpleName(), ioe.toString());
         }
-    }
+    } // end postData()
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
