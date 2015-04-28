@@ -63,7 +63,6 @@ public class MainActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
-
     }
 
     @Override
@@ -114,12 +113,9 @@ public class MainActivity extends ActionBarActivity
 
 
             }
-
-
             onSectionAttached(position);
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.container, objFragment).commit();
-
     }
 
     public void onSectionAttached(int number) {
@@ -161,8 +157,6 @@ public class MainActivity extends ActionBarActivity
                 mTitle = "Activities";
                 break;
         }
-
-
     }
 
     public void restoreActionBar() {

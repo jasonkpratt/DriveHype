@@ -56,6 +56,7 @@ public class AllMediaFragment extends Fragment {
     String oneText = "";
     String selectedText = "";
     String albumID = "";
+    String userID = "";
 
     /**
      * Use this factory method to create a new instance of
@@ -99,6 +100,7 @@ public class AllMediaFragment extends Fragment {
                 android.util.Log.d(this.getClass().getSimpleName()," " + getCookie(url, "oneText"));
                 android.util.Log.d(this.getClass().getSimpleName()," " + getCookie(url, "selectedText"));
                 android.util.Log.d(this.getClass().getSimpleName()," " + getCookie(url, "albumID"));
+                android.util.Log.d(this.getClass().getSimpleName()," " + getCookie(url, "uid"));
             }
         });
         mediaWebView.getSettings().setJavaScriptEnabled(true);
@@ -117,6 +119,8 @@ public class AllMediaFragment extends Fragment {
                 android.util.Log.d(this.getClass().getSimpleName(), "selectedText " + selectedText);
                 albumID = getCookie(url, "albumID");
                 android.util.Log.d(this.getClass().getSimpleName(), "albumID " + albumID);
+                userID = getCookie(url, "uid");
+                android.util.Log.d(this.getClass().getSimpleName(), "uid " + userID);
 
                 android.util.Log.d(this.getClass().getSimpleName(), "entering postData();");
                 postData();
@@ -167,7 +171,7 @@ public class AllMediaFragment extends Fragment {
         return cookieValue;
     }
 
-    public void postData(){
+    public void postData(){ // method for grabbing cookies and using REST calls to push album/user data
         HttpClient httpClient = new DefaultHttpClient();
         HttpPost httpPost = new HttpPost("http://www.drivehype.com/rest/rest.php/pushData");
         try{
@@ -180,9 +184,13 @@ public class AllMediaFragment extends Fragment {
             albumID = getCookie(url, "albumID");
             android.util.Log.d(this.getClass().getSimpleName(), "albumID " + albumID);
 
+            userID = getCookie(url, "uid");
+            android.util.Log.d(this.getClass().getSimpleName(), "uid" + userID);
+
             nameValuePairs.add(new BasicNameValuePair("oneText", oneText));
             nameValuePairs.add(new BasicNameValuePair("selectedText", selectedText));
             nameValuePairs.add(new BasicNameValuePair("id", albumID));
+            nameValuePairs.add(new BasicNameValuePair("user", userID));
             httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             android.util.Log.d(this.getClass().getSimpleName(), "setEntity");
 

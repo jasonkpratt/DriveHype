@@ -6,49 +6,42 @@
         jumboMode="false"
         revision="21.1.1"
         sha1="d1bf02de1c56d942e7a9d093b8610ba1ef4128e3">
-        <dex dex="C:\Users\Elliott Goldman\Documents\GitHub\DriveHype\app\build\intermediates\pre-dexed\debug\classes-4f4f2c358aed5812d1f86a4c1d79e54b04a32e6d.jar" />
+        <dex dex="C:\Users\Elliott Goldman\Documents\GitHub\DriveHype\app\build\intermediates\pre-dexed\release\classes-4f4f2c358aed5812d1f86a4c1d79e54b04a32e6d.jar" />
     </item>
     <item
         jar="C:\Users\Elliott Goldman\Documents\GitHub\DriveHype\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.2\libs\internal_impl-21.0.2.jar"
         jumboMode="false"
         revision="21.1.1"
         sha1="962e8b12569c56dbdcf8367eb4eac8bb129cd18f">
-        <dex dex="C:\Users\Elliott Goldman\Documents\GitHub\DriveHype\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.2-06ad61c6f6ddd240a3033942bf761ca0bb818b45.jar" />
-    </item>
-    <item
-        jar="C:\Users\Elliott Goldman\Documents\GitHub\DriveHype\app\build\intermediates\exploded-aar\DriveHype\volley\unspecified\classes.jar"
-        jumboMode="false"
-        revision="21.1.1"
-        sha1="3e76b31f8329fe7c61fd3482eff3c956c5509d3c">
-        <dex dex="C:\Users\Elliott Goldman\Documents\GitHub\DriveHype\app\build\intermediates\pre-dexed\debug\classes-64fdc7a87ad0a275905396b4c9558006821b843d.jar" />
+        <dex dex="C:\Users\Elliott Goldman\Documents\GitHub\DriveHype\app\build\intermediates\pre-dexed\release\internal_impl-21.0.2-06ad61c6f6ddd240a3033942bf761ca0bb818b45.jar" />
     </item>
     <item
         jar="C:\Users\Elliott Goldman\Documents\GitHub\DriveHype\app\build\intermediates\exploded-aar\com.facebook.android\facebook\3.21.1\classes.jar"
         jumboMode="false"
         revision="21.1.1"
-        sha1="5ef933314dbc42b9ad0ab7a36941e9c1608fd940">
-        <dex dex="C:\Users\Elliott Goldman\Documents\GitHub\DriveHype\app\build\intermediates\pre-dexed\debug\classes-b7b254089cc5bb53e6d07c9bd71f9802c8554f90.jar" />
+        sha1="c7ffad942e4461b80b9b40a6e2d2b95954adb9b5">
+        <dex dex="C:\Users\Elliott Goldman\Documents\GitHub\DriveHype\app\build\intermediates\pre-dexed\release\classes-b7b254089cc5bb53e6d07c9bd71f9802c8554f90.jar" />
     </item>
     <item
         jar="C:\Users\Elliott Goldman\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-android\1.1.2\91c20388c9a45f62b5ed8fe0502bb76ff6251fc7\bolts-android-1.1.2.jar"
         jumboMode="false"
         revision="21.1.1"
         sha1="91c20388c9a45f62b5ed8fe0502bb76ff6251fc7">
-        <dex dex="C:\Users\Elliott Goldman\Documents\GitHub\DriveHype\app\build\intermediates\pre-dexed\debug\bolts-android-1.1.2-20308e916eb1fc455147a8b8f605021559aeb702.jar" />
+        <dex dex="C:\Users\Elliott Goldman\Documents\GitHub\DriveHype\app\build\intermediates\pre-dexed\release\bolts-android-1.1.2-20308e916eb1fc455147a8b8f605021559aeb702.jar" />
     </item>
     <item
         jar="C:\Users\Elliott Goldman\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.2\support-annotations-21.0.2.jar"
         jumboMode="false"
         revision="21.1.1"
         sha1="99373741f99a0556ee293c41e8faa1ca3ae8a4e6">
-        <dex dex="C:\Users\Elliott Goldman\Documents\GitHub\DriveHype\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.2-e1922ed85b4c66e84ce5015b488c20188323113e.jar" />
+        <dex dex="C:\Users\Elliott Goldman\Documents\GitHub\DriveHype\app\build\intermediates\pre-dexed\release\support-annotations-21.0.2-e1922ed85b4c66e84ce5015b488c20188323113e.jar" />
     </item>
     <item
         jar="C:\Users\Elliott Goldman\Documents\GitHub\DriveHype\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.2\classes.jar"
         jumboMode="false"
         revision="21.1.1"
         sha1="7ae2d38807a43b2f2185ff4089a92c790b579e54">
-        <dex dex="C:\Users\Elliott Goldman\Documents\GitHub\DriveHype\app\build\intermediates\pre-dexed\debug\classes-283cefb2fa5083ff59c96bcd31ea90c51ced093c.jar" />
+        <dex dex="C:\Users\Elliott Goldman\Documents\GitHub\DriveHype\app\build\intermediates\pre-dexed\release\classes-283cefb2fa5083ff59c96bcd31ea90c51ced093c.jar" />
     </item>
 
 </items>
