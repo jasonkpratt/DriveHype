@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.drivehype.www.drivehype.R;
+import com.drivehype.www.drivehype.ui.MainActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +25,9 @@ import com.drivehype.www.drivehype.R;
  */
 
 public class PhotoAlbumsFragment extends Fragment {
+
+    String url = "http://www.drivehype.com/PhotoAlbumMobileView.html";
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -60,8 +65,15 @@ public class PhotoAlbumsFragment extends Fragment {
         WebView photoWebView = (WebView) photoAlbumWebView.findViewById(R.id.photowebview);
         photoWebView.setWebViewClient(new WebViewClient());
         photoWebView.getSettings().setJavaScriptEnabled(true);
-        photoWebView.loadUrl("http://www.drivehype.com/albums.html");
-        CookieManager.getInstance().setAcceptCookie(true);
+        photoWebView.loadUrl("http://www.drivehype.com/PhotoAlbumMobileView.html");
+        CookieManager cookieManager = CookieManager.getInstance();
+
+        String cookieString = "uid="+ MainActivity.uid;
+        Log.d("photoPage", "uid " + MainActivity.uid);
+        cookieManager.setAcceptCookie(true);
+        cookieManager.setCookie(url, cookieString);
+
+
         return photoAlbumWebView;
     }
 

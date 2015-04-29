@@ -5,7 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/DriveHype.iml" filepath="$PROJECT_DIR$/DriveHype.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/Libraries/facebooksdk3.21.1/facebook/facebook.iml" filepath="$PROJECT_DIR$/Libraries/facebooksdk3.21.1/facebook/facebook.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Libraries/facebooksdk3.21.1/facebooksdk3.21.1.iml" filepath="$PROJECT_DIR$/Libraries/facebooksdk3.21.1/facebooksdk3.21.1.iml" />
     </modules>
   </component>
 </project>

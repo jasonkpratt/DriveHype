@@ -32,7 +32,7 @@
             android:id="@+id/FB_name"
             android:text="John Smith"
             android:textSize="20sp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="40dp"
             android:layout_width="wrap_content"
             android:layout_height="30dp" />
         </LinearLayout>

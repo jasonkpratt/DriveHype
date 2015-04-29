@@ -29,8 +29,7 @@ public class Images {
         switch (source){
             //fb selected
             case 0:
-                imageThumbUrls= FB_Data_Pull.getAlbumCover();
-                imageUrls=FB_Data_Pull.getAlbumImageSource();
+
                 break;
 
            //internal memory selected
@@ -41,8 +40,7 @@ public class Images {
 
             //splash page
             case 2:
-                imageThumbUrls=FB_Data_Pull.selectedAlbumPhotos;
-                imageUrls=FB_Data_Pull.selectedAlbumPhotos;
+
         }
 
     }

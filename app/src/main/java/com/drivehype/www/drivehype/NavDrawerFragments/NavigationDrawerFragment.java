@@ -60,12 +60,11 @@ public class NavigationDrawerFragment extends Fragment {
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
     private String[] fragment_title=new String[] {"Home", "Flex Display", "WiFi", "Bluetooth",
-            "Photo Albums", "Text Albums", "Public Albums","All Media","Stock Photos",
-            "Friends", "Messaging", "Activities"};
-    private String[] fragment_sections=new String[] {"Select Display", "My Media", "Social"};
+            "Photo Albums", "Text Albums", "Public Albums","All Media"};
+    private String[] fragment_sections=new String[] {"Select Display", "My Media"};
     public static final Integer[] fragment_images = { R.drawable.home_icon,
             R.drawable.push_icon,R.drawable.wifi_icon,R.drawable.bluetooth_icon,
-            R.drawable.photoalbums_icon,R.drawable.textalbums_icon,R.drawable.public_icon, R.drawable.allmedia_icon,R.drawable.storage_icon,
+            R.drawable.dh_icon,R.drawable.dh_icon,R.drawable.public_icon, R.drawable.dh_icon,R.drawable.storage_icon,
             R.drawable.friends_icon, R.drawable.message_icon, R.drawable.calendar_icon};
 
     public NavigationDrawerFragment() {

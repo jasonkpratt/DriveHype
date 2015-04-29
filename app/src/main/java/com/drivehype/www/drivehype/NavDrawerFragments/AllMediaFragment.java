@@ -1,6 +1,7 @@
 package com.drivehype.www.drivehype.NavDrawerFragments;
 
 import android.app.Activity;
+import android.content.Context;
 import android.net.Uri;
 import android.nfc.Tag;
 import android.os.Bundle;
@@ -15,8 +16,10 @@ import android.view.ViewGroup;
 import android.webkit.CookieManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 
 import com.drivehype.www.drivehype.R;
+import com.drivehype.www.drivehype.ui.MainActivity;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -33,12 +36,17 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.widget.Spinner;
+import android.widget.ArrayAdapter;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.AdapterView;
+import android.widget.Toast;
 
 
 /**
@@ -49,7 +57,7 @@ import java.util.List;
  * Use the {@link AllMediaFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AllMediaFragment extends Fragment {
+public class AllMediaFragment extends Fragment{
 
     private OnFragmentInteractionListener mListener;
     String url = "http://www.drivehype.com/allMedia.html";
@@ -57,7 +65,8 @@ public class AllMediaFragment extends Fragment {
     String selectedText = "";
     String albumID = "";
     String userID = "";
-
+    CookieManager cookieManager;
+    private String[] arraySpinner;
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -92,6 +101,43 @@ public class AllMediaFragment extends Fragment {
         StrictMode.setThreadPolicy(policy);
         View allMediaWebView = inflater.inflate(R.layout.fragment_allmedia, container, false);
         WebView mediaWebView = (WebView) allMediaWebView.findViewById(R.id.mediawebview);
+
+        this.arraySpinner = new String[] {
+                "", "", "", "", ""
+        };
+
+
+       Spinner s = (Spinner) allMediaWebView.findViewById(R.id.text_spinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item, arraySpinner);
+        s.setAdapter(adapter);
+        s.setOnItemSelectedListener(
+                new OnItemSelectedListener() {
+                    public void onItemSelected(
+                            AdapterView<?> parent, View view, int position, long id) {
+                        Log.d("touch", "selected text "+position);
+                        selectedText=String.valueOf(position);
+                        Log.d("touch", "selected "+selectedText);
+
+                    }
+
+                    public void onNothingSelected(AdapterView<?> parent) {
+                        showToast("Spinner1: unselected");
+                    }
+                });
+
+        final Button pushbutton = (Button) allMediaWebView.findViewById(R.id.push_btn);
+        pushbutton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+
+                postData();
+
+                // Perform action on click
+            }
+        });
+
+
+
         mediaWebView.setWebViewClient(new WebViewClient(){
             @Override
             public void onPageFinished(WebView view, String url){
@@ -105,31 +151,88 @@ public class AllMediaFragment extends Fragment {
         });
         mediaWebView.getSettings().setJavaScriptEnabled(true);
         mediaWebView.loadUrl("http://www.drivehype.com/allMedia.html");
-        CookieManager.getInstance().setAcceptCookie(true);
+        cookieManager = CookieManager.getInstance();
+
+        String cookieString = "uid="+MainActivity.uid;
+        Log.d("newpic1", "uid "+MainActivity.uid);
+        cookieManager.setAcceptCookie(true);
+        cookieManager.setCookie(url, cookieString);
+
+       // CookieManager.getInstance().setAcceptCookie(true);
 
         allMediaWebView.setOnTouchListener(new View.OnTouchListener(){
             @Override
             public boolean onTouch(View v, MotionEvent event)
             {
+
+                Log.d("newpic1", "in touch ");
                 String cookies = CookieManager.getInstance().getCookie(url);
                 android.util.Log.d(this.getClass().getSimpleName(), "Cookies: " + cookies);
                 oneText = getCookie(url, "oneText");
                 android.util.Log.d(this.getClass().getSimpleName(), "oneText " + oneText);
-                selectedText = getCookie(url, "selectedText");
-                android.util.Log.d(this.getClass().getSimpleName(), "selectedText " + selectedText);
+
+               // android.util.Log.d(this.getClass().getSimpleName(), "selectedText " + selectedText);
                 albumID = getCookie(url, "albumID");
                 android.util.Log.d(this.getClass().getSimpleName(), "albumID " + albumID);
                 userID = getCookie(url, "uid");
+               String text0=getCookie(url, "text0");
+
+
+              String text1=getCookie(url, "text1");
+                String text2=getCookie(url, "text2");
+                String text3=getCookie(url, "text3");
+                String text4=getCookie(url, "text4");
+                if (text0.equals("none")){
+                    arraySpinner[0]="";}
+                else{
+                    arraySpinner[0]=text0;
+                }
+
+                if (text1.equals("none")){
+                    arraySpinner[1]="";}
+                else{
+                    arraySpinner[1]=text1;
+                }
+
+                if (text2.equals("none")){
+                    arraySpinner[2]="";}
+                else{
+                    arraySpinner[2]=text2;
+                }
+
+                if (text3.equals("none")){
+                    arraySpinner[3]="";}
+                else{
+                    arraySpinner[3]=text3;
+                }
+
+                if (text4.equals("none")){
+                    arraySpinner[4]="";}
+                else{
+                    arraySpinner[4]=text4;
+                }
+
+
                 android.util.Log.d(this.getClass().getSimpleName(), "uid " + userID);
 
                 android.util.Log.d(this.getClass().getSimpleName(), "entering postData();");
-                postData();
+                //postData();
                 android.util.Log.d(this.getClass().getSimpleName(), "returned postData();");
 
+                Log.d("touch", "albumId "+albumID);
+
+                Log.d("touch", "one text "+oneText);
+                Log.d("touch", "text0 "+text0);
+               Log.d("touch", "text1 "+text1);
+                Log.d("touch", "text2 "+text2);
                 return false;
             }
         });
         return allMediaWebView;
+    }
+
+    void showToast(CharSequence msg) {
+        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -159,7 +262,8 @@ public class AllMediaFragment extends Fragment {
     public String getCookie(String url, String cookieName){
         String cookieValue = null;
 
-        CookieManager cookieManager = CookieManager.getInstance();
+
+
         String cookies = cookieManager.getCookie(url);
         String[] temp = cookies.split(";");
         for (String ar1 : temp){
@@ -172,6 +276,15 @@ public class AllMediaFragment extends Fragment {
     }
 
     public void postData(){ // method for grabbing cookies and using REST calls to push album/user data
+
+        showToast("Pushing media");
+
+        Log.d("touch", "albumId "+albumID);
+
+        Log.d("touch", "one text "+oneText);
+        Log.d("touch", "selected text in push"+selectedText);
+
+
         HttpClient httpClient = new DefaultHttpClient();
         HttpPost httpPost = new HttpPost("http://www.drivehype.com/rest/rest.php/pushData");
         try{
@@ -179,8 +292,8 @@ public class AllMediaFragment extends Fragment {
 
             oneText = getCookie(url, "oneText");
             android.util.Log.d(this.getClass().getSimpleName(), "oneText " + oneText);
-            selectedText = getCookie(url, "selectedText");
-            android.util.Log.d(this.getClass().getSimpleName(), "selectedText " + selectedText);
+            //selectedText = getCookie(url, "selectedText");
+            //android.util.Log.d(this.getClass().getSimpleName(), "selectedText " + selectedText);
             albumID = getCookie(url, "albumID");
             android.util.Log.d(this.getClass().getSimpleName(), "albumID " + albumID);
 
@@ -221,6 +334,8 @@ public class AllMediaFragment extends Fragment {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
+
+  
 
 
 

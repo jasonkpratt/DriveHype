@@ -6,5 +6,17 @@
     <!-- TODO: Update blank fragment layout -->
     <TextView android:layout_width="match_parent" android:layout_height="match_parent"
         android:text="A social fragment. Friends." />
+    <Spinner
+        android:id="@+id/text_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
+
+    <Button
+        android:id="@+id/push_btn"
+        android:layout_alignParentBottom="true"
+        android:text="Push Album"
+        android:layout_marginLeft="150dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 </FrameLayout>

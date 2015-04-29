@@ -41,18 +41,17 @@ public class HomeFragment extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
     private String mParam1;
     private OnFragmentInteractionListener mListener;
-    private boolean albumTitleSet=false;
     private static Bundle args;
     private static UiLifecycleHelper uiHelper ;
     protected boolean isResumed = false;
     private static final int REAUTH_ACTIVITY_CODE = 100;
     private LoginButton authButton;
     private TextView userNameView;
+    private TextView user_label;
     public static Session session;
-    private static ImageView albumImage;
-    private static TextView albumTitle;
     private static FB_Data_Pull FBData;
     private ImageFetcher mImageFetcher;
+    private static String userId;
 
 
     private Session.StatusCallback callback = new Session.StatusCallback() {
@@ -68,6 +67,7 @@ public class HomeFragment extends Fragment {
 
         public void onFragmentInteraction(GraphUser user);
         public void onFragmentInteraction(Bitmap img);
+        public void onFragmentInteraction(String userId);
 
     }
 
@@ -109,20 +109,21 @@ public class HomeFragment extends Fragment {
             profilePictureView = (ProfilePictureView) view.findViewById(R.id.selection_profile_pic);
             profilePictureView.setCropped(true);
             userNameView = (TextView) view.findViewById(R.id.profile_name);
-            albumTitle=(TextView)view.findViewById(R.id.albumTitle);
-            albumImage=(ImageView)view.findViewById(R.id.selectedAlbum);
+            user_label= (TextView) view.findViewById(R.id.user_label);
+
             authButton=(LoginButton) view.findViewById(R.id.authButton);
             authButton.setFragment(this);
             FBData=FB_Data_Pull.getInstance(this);
 
             if(FB_Data_Pull.user!=null) {
                profilePictureView.setProfileId(FB_Data_Pull.user.getId());
+                userId=FB_Data_Pull.user.getId();
                 Log.d("newpic1", "userData"+FB_Data_Pull.user.toString());
+
+                mListener.onFragmentInteraction(userId);
             }
 
-             albumTitle.setText("Album Title: "+FB_Data_Pull.albumTitle);
-            if(MainActivity.mapIsSet)
-                albumImage.setImageBitmap(MainActivity.splashMap);
+
             return view;
             }
 
@@ -193,24 +194,19 @@ public class HomeFragment extends Fragment {
     public void setPicture(GraphUser user) {
 
         profilePictureView.setProfileId(FB_Data_Pull.user.getId());
-        Log.d("newpic3", "setting picture" + FB_Data_Pull.user.getId().toString());
+        Log.d("newpic3", "User getID" + FB_Data_Pull.user.getId().toString());
+        user_label.setText("User: "+user.getFirstName());
+        userNameView.setText("");
+        authButton.setVisibility(View.INVISIBLE);
         mListener.onFragmentInteraction(user);
 
 
     }
 
-    public void setAlbumPicture(String url){
-
-    Log.d("albumView","albumView obj"+albumImage.toString());
-        new ImageDownloader().execute(url);
-    }
 
 
-    public void setAlbumTitle( String title) {
 
 
-        albumTitle.setText("Album Title: "+title);
-    }
 
 
 
@@ -271,22 +267,7 @@ private class ImageDownloader extends AsyncTask<String, Void, Bitmap> {
 
 
 
-    @Override
 
-    protected void onPostExecute(Bitmap result) {
-
-        Log.i("Async", "onPostExecute Called");
-
-        albumImage.setImageBitmap(result);
-
-        mListener.onFragmentInteraction(result);
-
-
-        //simpleWaitDialog.dismiss();
-
-
-
-    }
 
 
 

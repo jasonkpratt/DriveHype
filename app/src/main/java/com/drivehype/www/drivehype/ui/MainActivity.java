@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
@@ -50,6 +51,7 @@ public class MainActivity extends ActionBarActivity
     private MenuItem logoutItem;
     public static Bitmap splashMap;
     public static boolean mapIsSet=false;
+    public static String uid;
 
 
     @Override
@@ -269,12 +271,22 @@ public class MainActivity extends ActionBarActivity
 
 
     @Override
+    public void onFragmentInteraction(String user) {
+        // what should this activity do when fragment calls this method
+       uid=user;
+        Log.d("newpic1", "user in activity set:"+user);
+
+    }
+
+    @Override
     public void onFragmentInteraction(Uri uri) {
         // what should this activity do when fragment calls this method
     }
 
     @Override
     public void onFragmentInteraction(GraphUser user) {
+        Log.d("newpic2", "main activity ");
+        uid=user.getId();
         logoutItem.setTitle(user.getFirstName()+": Sign Out");
         // what should this activity do when fragment calls this method
     }

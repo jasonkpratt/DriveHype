@@ -84,102 +84,6 @@ public class FB_Data_Pull {
         request.executeAsync();
     }
 
-    public static void makeAlbumRequest( ) {
-
-        /* make the API call */
-        new Request(
-                session,
-                "/me/albums",
-                null,
-                HttpMethod.GET,
-                new Request.Callback() {
-
-
-                    public void onCompleted(Response response) {
-                        Log.d("myuser", "Response albums" + response.toString());
-                        try {
-
-                            counter=0;
-                            JSONObject innerJson = response.getGraphObject().getInnerJSONObject();
-                            JSONArray data = innerJson.getJSONArray("data");
-                            Log.d("myindex", "index count" + data.length());
-                            albumList=new String [data.length()];
-                            albumImageUri=new String [data.length()];
-                            albumImageSource=new String [data.length()];
-                            for ( index=0; index<data.length();index++) {
-
-                                oneAlbum = data.getJSONObject(index);
-                                albumList[index]=oneAlbum.getString("name"); // this will return you the album's name.
-                                final String coverPhoto=oneAlbum.getString("cover_photo");
-
-                                //setting default album
-                                if(index==0) {
-                                    setAlbum(oneAlbum.getString("id"));
-                                    myFrag.setAlbumTitle(albumList[0]);
-                                    albumTitle=albumList[0];
-                                }
-                                    makePhotoRequest(albumID);
-
-
-                                Log.d("albums Response", "albums response innerjson"+coverPhoto);
-                                Log.d("array", "albums response jsonArray" + oneAlbum.toString());
-
-                                        /* make the API call */
-
-                                new Request(
-                                        session,
-                                        "/"+ coverPhoto,
-                                        null,
-                                        HttpMethod.GET,
-                                        new Request.Callback() {
-                                            public void onCompleted(Response response2) {
-                                                Log.d("myindex", "index count pictures" + counter);
-
-                                                JSONObject innerJson2 = response2.getGraphObject().getInnerJSONObject();
-                                                try{
-                                                    albumImageUri[counter]=innerJson2.getString("picture") ;
-                                                    if(counter==0){
-                                                        Log.d("mypic", "image url" + albumImageUri[0]);
-                                                        myFrag.setAlbumPicture(albumImageUri[0]);
-                                                    }
-
-
-
-                                                }
-
-                                                catch (JSONException e) { }
-                                                //needed a separate counter for each async methods
-
-                                                try{
-                                                    albumImageSource[counter]=innerJson2.getString("source") ;
-
-                                                }
-                                                catch (JSONException e) { }
-
-                                                counter++;
-
-                                            }
-                                        }
-                                ).executeAsync();
-
-
-
-                            }
-
-                            //mListener.onFragmentInteraction(albumList, albumImageUri,albumImageSource);
-
-
-                        }
-                        catch (JSONException e) { }
-
-
-            /* handle the result */
-
-                    }
-                }
-        ).executeAsync();
-
-    }
 
 
     public static void makePhotoRequest(String userAlbum){
@@ -210,21 +114,7 @@ public class FB_Data_Pull {
         ).executeAsync();
     }
 
-    public  static String [] getAlbumList(){
-        return albumList;
 
-    }
-
-    public  static String [] getAlbumCover(){
-        return albumImageUri;
-
-    }
-
-
-    public static String [] getAlbumImageSource(){
-        return albumImageSource;
-
-    }
 
     public static GraphUser getUser(){
         return user;

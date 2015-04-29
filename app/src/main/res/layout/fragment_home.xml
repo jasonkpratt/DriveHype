@@ -47,40 +47,34 @@
         android:layout_width="fill_parent"
         android:layout_height="300dp"
         android:layout_marginTop="20dp"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:weightSum="1">
 
+
+
+        <com.facebook.widget.ProfilePictureView
+            android:id="@+id/selection_profile_pic"
+            android:layout_height="wrap_content"
+            android:layout_width="116dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="left"
+            android:layout_marginLeft="5dp"
+            facebook:preset_size="large"
+            android:layout_weight="0.34" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/user_label"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="#AFDEFE"
-            android:textSize="28sp"
-            android:typeface="serif"
-            android:textStyle="italic"
-            android:text="Now Playing" />
-
-        <ImageView
-            android:id="@+id/selectedAlbum"
-            android:layout_width="190dp"
-            android:layout_height="190dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/empty_photo" />
-
-        <TextView
-            android:id="@+id/albumTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center"
+            android:gravity="center_horizontal"
             android:textColor="#AFDEFE"
             android:textSize="20sp"
             android:typeface="serif"
             android:textStyle="italic"
-            android:text="" />
+            android:layout_marginLeft="90dp"
+            android:text="User:" />
 
-      </LinearLayout>
+    </LinearLayout>
 
 
         <LinearLayout
@@ -108,26 +102,7 @@
                 android:typeface="serif"
                 android:textStyle="italic"
                 android:text="@string/app_name" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:gravity="bottom"
-                android:textColor="#AFDEFE"
-                android:textSize="20sp"
-                android:typeface="serif"
-                android:textStyle="italic"
-                android:layout_marginLeft="50dp"
-                android:text="User:" />
 
-            <com.facebook.widget.ProfilePictureView
-                android:id="@+id/selection_profile_pic"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_gravity="bottom"
-                android:gravity="left"
-                android:layout_marginLeft="5dp"
-                facebook:preset_size="small" />
         </LinearLayout>
     </LinearLayout>
 
