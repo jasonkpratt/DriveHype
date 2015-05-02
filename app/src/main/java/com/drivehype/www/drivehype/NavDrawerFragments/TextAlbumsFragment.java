@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.CookieManager;
+import android.webkit.JsResult;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -77,6 +79,13 @@ public class TextAlbumsFragment extends Fragment {
         textWebView.loadUrl("http://www.drivehype.com/TextAlbumMobileView.html");
         CookieManager.getInstance().setAcceptCookie(true);
 
+        textWebView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
+                //Required functionality here
+                return super.onJsAlert(view, url, message, result);
+            }
+        });
 
         CookieManager cookieManager = CookieManager.getInstance();
 

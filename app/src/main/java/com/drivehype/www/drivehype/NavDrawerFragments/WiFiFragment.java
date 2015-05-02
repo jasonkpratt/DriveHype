@@ -3,12 +3,19 @@ package com.drivehype.www.drivehype.NavDrawerFragments;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.app.Fragment;
+import android.webkit.CookieManager;
+import android.webkit.JsResult;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.drivehype.www.drivehype.R;
+import com.drivehype.www.drivehype.ui.MainActivity;
 
 
 /**
@@ -20,6 +27,8 @@ import com.drivehype.www.drivehype.R;
  * create an instance of this fragment.
  */
 public class WiFiFragment extends Fragment {
+    String url = "http://www.drivehype.com/display.html";
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -66,10 +75,32 @@ public class WiFiFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_wifi, container, false);
-    }
+        View display= inflater.inflate(R.layout.fragment_wifi, container, false);
+        WebView displayWebView = (WebView) display.findViewById(R.id.displaywebview);
+        displayWebView.setWebViewClient(new WebViewClient());
+        displayWebView.getSettings().setJavaScriptEnabled(true);
+        displayWebView.loadUrl("http://www.drivehype.com/display.html");
+        CookieManager cookieManager = CookieManager.getInstance();
 
-    // TODO: Rename method, update argument and hook method into UI event
+
+        displayWebView.setWebChromeClient(new WebChromeClient() {
+                                              @Override
+                                              public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
+                                                  //Required functionality here
+                                                  return super.onJsAlert(view, url, message, result);
+                                              }
+                                          });
+
+            String cookieString = "uid=" + MainActivity.uid;
+            Log.d("displayPage","uid "+MainActivity.uid);
+            cookieManager.setAcceptCookie(true);
+            cookieManager.setCookie(url,cookieString);
+            return display;
+
+        }
+
+                // TODO: Rename method, update argument and hook method into UI event
+
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);

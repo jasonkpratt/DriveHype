@@ -16,6 +16,8 @@
 -->
 <resources>
 
+    <string name="message">Select Text Message</string>
+
     <string name="app_name">DriveHype</string>
     <string name="app_id">334273433411246</string>
     <string name="edit_message">Enter a message</string>

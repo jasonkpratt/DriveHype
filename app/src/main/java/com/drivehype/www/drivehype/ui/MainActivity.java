@@ -129,7 +129,7 @@ public class MainActivity extends ActionBarActivity
                 mTitle = "Flex Display";
                 break;
             case 3:
-                mTitle = "WiFi";
+                mTitle = "Set Displays";
                 break;
             case 4:
                 mTitle = "Bluetooth";

@@ -1,7 +1,9 @@
 package com.drivehype.www.drivehype.NavDrawerFragments;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.nfc.Tag;
 import android.os.Bundle;
@@ -47,6 +49,9 @@ import java.util.List;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.AdapterView;
 import android.widget.Toast;
+import android.view.GestureDetector;
+import android.support.v4.view.GestureDetectorCompat;
+import android.view.Gravity;
 
 
 /**
@@ -57,14 +62,20 @@ import android.widget.Toast;
  * Use the {@link AllMediaFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AllMediaFragment extends Fragment{
+public class AllMediaFragment extends Fragment {
+
+private static final String DEBUG_TAG = "Gestures";
+private GestureDetectorCompat mDetector;
+
 
     private OnFragmentInteractionListener mListener;
     String url = "http://www.drivehype.com/allMedia.html";
-    String oneText = "";
-    String selectedText = "";
+    String oneText1="";
+    String selectedText = "5";
     String albumID = "";
     String userID = "";
+    String oneText="0";
+
     CookieManager cookieManager;
     private String[] arraySpinner;
     /**
@@ -91,6 +102,9 @@ public class AllMediaFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Set the gesture detector as the double tap
+        // listener
     }
 
     @Override
@@ -102,83 +116,35 @@ public class AllMediaFragment extends Fragment{
         View allMediaWebView = inflater.inflate(R.layout.fragment_allmedia, container, false);
         WebView mediaWebView = (WebView) allMediaWebView.findViewById(R.id.mediawebview);
 
-        this.arraySpinner = new String[] {
+        this.arraySpinner = new String[]{
                 "", "", "", "", ""
         };
 
 
-       Spinner s = (Spinner) allMediaWebView.findViewById(R.id.text_spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item, arraySpinner);
-        s.setAdapter(adapter);
-        s.setOnItemSelectedListener(
-                new OnItemSelectedListener() {
-                    public void onItemSelected(
-                            AdapterView<?> parent, View view, int position, long id) {
-                        Log.d("touch", "selected text "+position);
-                        selectedText=String.valueOf(position);
-                        Log.d("touch", "selected "+selectedText);
+       // Spinner s = (Spinner) allMediaWebView.findViewById(R.id.text_spinner);
+        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, arraySpinner);
+        //s.setAdapter(adapter);
+        //s.setOnItemSelectedListener(
+          //      new OnItemSelectedListener() {
+            //        public void onItemSelected(
+              //              AdapterView<?> parent, View view, int position, long id) {
+                //        Log.d("touch", "selected text " + position);
+                  //      selectedText = String.valueOf(position);
+                    //    Log.d("touch", "selected " + selectedText);
 
-                    }
+                    //}
 
-                    public void onNothingSelected(AdapterView<?> parent) {
-                        showToast("Spinner1: unselected");
-                    }
-                });
+                    //public void onNothingSelected(AdapterView<?> parent) {
+                      //  showToast("Spinner1: unselected");
+                    //}
+               // });
 
         final Button pushbutton = (Button) allMediaWebView.findViewById(R.id.push_btn);
         pushbutton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
-
-                postData();
-
-                // Perform action on click
-            }
-        });
-
-
-
-        mediaWebView.setWebViewClient(new WebViewClient(){
-            @Override
-            public void onPageFinished(WebView view, String url){
-                String cookies = CookieManager.getInstance().getCookie(url);
-                android.util.Log.d(this.getClass().getSimpleName(), "Cookies: " + cookies);
-                android.util.Log.d(this.getClass().getSimpleName()," " + getCookie(url, "oneText"));
-                android.util.Log.d(this.getClass().getSimpleName()," " + getCookie(url, "selectedText"));
-                android.util.Log.d(this.getClass().getSimpleName()," " + getCookie(url, "albumID"));
-                android.util.Log.d(this.getClass().getSimpleName()," " + getCookie(url, "uid"));
-            }
-        });
-        mediaWebView.getSettings().setJavaScriptEnabled(true);
-        mediaWebView.loadUrl("http://www.drivehype.com/allMedia.html");
-        cookieManager = CookieManager.getInstance();
-
-        String cookieString = "uid="+MainActivity.uid;
-        Log.d("newpic1", "uid "+MainActivity.uid);
-        cookieManager.setAcceptCookie(true);
-        cookieManager.setCookie(url, cookieString);
-
-       // CookieManager.getInstance().setAcceptCookie(true);
-
-        allMediaWebView.setOnTouchListener(new View.OnTouchListener(){
-            @Override
-            public boolean onTouch(View v, MotionEvent event)
-            {
-
-                Log.d("newpic1", "in touch ");
-                String cookies = CookieManager.getInstance().getCookie(url);
-                android.util.Log.d(this.getClass().getSimpleName(), "Cookies: " + cookies);
-                oneText = getCookie(url, "oneText");
-                android.util.Log.d(this.getClass().getSimpleName(), "oneText " + oneText);
-
-               // android.util.Log.d(this.getClass().getSimpleName(), "selectedText " + selectedText);
-                albumID = getCookie(url, "albumID");
-                android.util.Log.d(this.getClass().getSimpleName(), "albumID " + albumID);
-                userID = getCookie(url, "uid");
-               String text0=getCookie(url, "text0");
-
-
-              String text1=getCookie(url, "text1");
+                oneText1 = getCookie(url, "oneText");
+                String text0=getCookie(url, "text0");
+                String text1=getCookie(url, "text1");
                 String text2=getCookie(url, "text2");
                 String text3=getCookie(url, "text3");
                 String text4=getCookie(url, "text4");
@@ -212,28 +178,98 @@ public class AllMediaFragment extends Fragment{
                     arraySpinner[4]=text4;
                 }
 
-
-                android.util.Log.d(this.getClass().getSimpleName(), "uid " + userID);
-
-                android.util.Log.d(this.getClass().getSimpleName(), "entering postData();");
-                //postData();
-                android.util.Log.d(this.getClass().getSimpleName(), "returned postData();");
-
                 Log.d("touch", "albumId "+albumID);
 
-                Log.d("touch", "one text "+oneText);
+                Log.d("touch", "one text "+oneText1);
                 Log.d("touch", "text0 "+text0);
-               Log.d("touch", "text1 "+text1);
+                Log.d("touch", "text1 "+text1);
                 Log.d("touch", "text2 "+text2);
-                return false;
+                if (oneText1.equals("true")){
+
+                    Log.d("touch", "im inside");
+                    final ArrayList mSelectedItems = new ArrayList();  // Where we track the selected items
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    // Set the dialog title
+                    builder.setTitle("Pick a text message");
+                    // Specify the list array, the items to be selected by default (null for none),
+                    // and the listener through which to receive callbacks when items are selected
+                    int position=0;
+                    builder.setSingleChoiceItems(arraySpinner, position,
+                            new DialogInterface.OnClickListener() {
+
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    selectedText=String.valueOf(which);
+                                    Log.d("touch", "selected Text");
+
+                                    }
+                                });
+
+
+
+
+                            // Set the action buttons
+                            builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // User clicked OK, so save the mSelectedItems results somewhere
+                                    // or return them to the component that opened the dialog
+                                    postData();
+
+                                }
+                            });
+
+
+
+
+
+                    builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+
+                        }
+                    });
+
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                                    }
+                else{
+                    postData();
+                }
+
+
+
+                // Perform action on click
             }
         });
+
+
+        mediaWebView.getSettings().setJavaScriptEnabled(true);
+        mediaWebView.loadUrl("http://www.drivehype.com/allMedia.html");
+        cookieManager = CookieManager.getInstance();
+
+        String cookieString = "uid=" + MainActivity.uid;
+        Log.d("newpic1", "uid " + MainActivity.uid);
+        cookieManager.setAcceptCookie(true);
+        cookieManager.setCookie(url, cookieString);
+
         return allMediaWebView;
+
     }
 
+
+
     void showToast(CharSequence msg) {
-        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+
+
+       Toast toast = Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
     }
+
+
+
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -281,8 +317,16 @@ public class AllMediaFragment extends Fragment{
 
         Log.d("touch", "albumId "+albumID);
 
-        Log.d("touch", "one text "+oneText);
+
         Log.d("touch", "selected text in push"+selectedText);
+
+        String cookies = CookieManager.getInstance().getCookie(url);
+        android.util.Log.d(this.getClass().getSimpleName(), "Cookies: " + cookies);
+        oneText1 = getCookie(url, "oneText");
+        // android.util.Log.d(this.getClass().getSimpleName(), "selectedText " + selectedText);
+        albumID = getCookie(url, "albumID");
+        android.util.Log.d(this.getClass().getSimpleName(), "albumID " + albumID);
+        userID = getCookie(url, "uid");
 
 
         HttpClient httpClient = new DefaultHttpClient();
@@ -290,15 +334,17 @@ public class AllMediaFragment extends Fragment{
         try{
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
 
-            oneText = getCookie(url, "oneText");
-            android.util.Log.d(this.getClass().getSimpleName(), "oneText " + oneText);
-            //selectedText = getCookie(url, "selectedText");
-            //android.util.Log.d(this.getClass().getSimpleName(), "selectedText " + selectedText);
-            albumID = getCookie(url, "albumID");
-            android.util.Log.d(this.getClass().getSimpleName(), "albumID " + albumID);
+            oneText1 = getCookie(url, "oneText");
+            if(oneText1.equals("true"))
+                oneText="1";
+            else oneText="0";
 
+            Log.d("touch", "one text "+oneText);
+
+            albumID = getCookie(url, "albumID");
             userID = getCookie(url, "uid");
-            android.util.Log.d(this.getClass().getSimpleName(), "uid" + userID);
+
+
 
             nameValuePairs.add(new BasicNameValuePair("oneText", oneText));
             nameValuePairs.add(new BasicNameValuePair("selectedText", selectedText));
@@ -335,7 +381,7 @@ public class AllMediaFragment extends Fragment{
         public void onFragmentInteraction(Uri uri);
     }
 
-  
+
 
 
 
