@@ -119,7 +119,10 @@ public class HomeFragment extends Fragment {
                profilePictureView.setProfileId(FB_Data_Pull.user.getId());
                 userId=FB_Data_Pull.user.getId();
                 Log.d("newpic1", "userData"+FB_Data_Pull.user.toString());
-
+                Log.d("newpic3", "set on create view" + FB_Data_Pull.user.getId().toString());
+                user_label.setText("User: "+FB_Data_Pull.user.getFirstName());
+                userNameView.setText("");
+                authButton.setVisibility(View.INVISIBLE);
                 mListener.onFragmentInteraction(userId);
             }
 
