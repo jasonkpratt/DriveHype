@@ -19,6 +19,8 @@ import com.facebook.*;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
 
+import com.facebook.widget.*;
+
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.facebook.widget.ProfilePictureView;
@@ -52,6 +54,10 @@ public class HomeFragment extends Fragment {
     private static FB_Data_Pull FBData;
     private ImageFetcher mImageFetcher;
     private static String userId;
+    private GraphUser myUser;
+
+
+
 
 
     private Session.StatusCallback callback = new Session.StatusCallback() {
@@ -60,6 +66,19 @@ public class HomeFragment extends Fragment {
             onSessionStateChange(session, state, exception);
         }
     };
+
+    private FacebookDialog.Callback dialogCallback = new FacebookDialog.Callback() {
+        @Override
+        public void onError(FacebookDialog.PendingCall pendingCall, Exception error, Bundle data) {
+            Log.d("HelloFacebook", String.format("Error: %s", error.toString()));
+        }
+
+        @Override
+        public void onComplete(FacebookDialog.PendingCall pendingCall, Bundle data) {
+            Log.d("HelloFacebook", "Success!");
+        }
+    };
+
 
 
     public interface OnFragmentInteractionListener {
@@ -104,28 +123,35 @@ public class HomeFragment extends Fragment {
                 Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-            //get FB user and albums, log in if needed
-            session = Session.getActiveSession();
+
             profilePictureView = (ProfilePictureView) view.findViewById(R.id.selection_profile_pic);
             profilePictureView.setCropped(true);
             userNameView = (TextView) view.findViewById(R.id.profile_name);
             user_label= (TextView) view.findViewById(R.id.user_label);
 
-            authButton=(LoginButton) view.findViewById(R.id.authButton);
-            authButton.setFragment(this);
-            FBData=FB_Data_Pull.getInstance(this);
 
-            if(FB_Data_Pull.user!=null) {
-               profilePictureView.setProfileId(FB_Data_Pull.user.getId());
-                userId=FB_Data_Pull.user.getId();
-                Log.d("newpic1", "userData"+FB_Data_Pull.user.toString());
-                Log.d("newpic3", "set on create view" + FB_Data_Pull.user.getId().toString());
-                user_label.setText("User: "+FB_Data_Pull.user.getFirstName());
-                userNameView.setText("");
-                authButton.setVisibility(View.INVISIBLE);
-                mListener.onFragmentInteraction(userId);
+
+            authButton=(LoginButton) view.findViewById(R.id.authButton);
+            authButton.setLoginBehavior(SessionLoginBehavior.SUPPRESS_SSO);
+            authButton.setFragment(this);
+
+            authButton.setUserInfoChangedCallback(new LoginButton.UserInfoChangedCallback() {
+                @Override
+                public void onUserInfoFetched(GraphUser user) {
+                if(user!=null) {
+
+                    profilePictureView.setProfileId(user.getId());
+                    userId=user.getId();
+                    Log.d("newpic1", "userData"+user.toString());
+                    Log.d("newpic3", "set on create view" + user);
+                    user_label.setText("User: "+user.getFirstName());
+                    userNameView.setText("");
+                    authButton.setVisibility(View.INVISIBLE);
+                    mListener.onFragmentInteraction(userId);
+                }
             }
 
+            });
 
             return view;
             }
@@ -200,7 +226,7 @@ public class HomeFragment extends Fragment {
         Log.d("newpic3", "User getID" + FB_Data_Pull.user.getId().toString());
         user_label.setText("User: "+user.getFirstName());
         userNameView.setText("");
-        authButton.setVisibility(View.INVISIBLE);
+        //authButton.setVisibility(View.INVISIBLE);
         mListener.onFragmentInteraction(user);
 
 

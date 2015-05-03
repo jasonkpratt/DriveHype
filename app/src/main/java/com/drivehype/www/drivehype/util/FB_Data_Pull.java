@@ -40,6 +40,8 @@ public class FB_Data_Pull {
 
 
     private FB_Data_Pull(){
+
+
         session=Session.getActiveSession();
         session.open((AccessToken.createFromExistingAccessToken(session.getAccessToken(),session.getExpirationDate(),null,null,session.getPermissions())),null);
        permissions=session.getPermissions();
